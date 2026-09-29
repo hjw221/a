@@ -248,7 +248,7 @@ def stage_tune(csv_path):
         pack = pickle.load(f)
     F, lab, valid = pack["F"], pack["lab"], pack["valid"]
     m1_pack = load_m1_pack(csv_path)
-    m1_index = pd.to_datetime(m1_pack[0], unit="m")
+    m1_index = load_raw_m1(csv_path).index
     folds = build_folds_m1(m1_index, CFG, GEOM["horizon_m1"])
     f0 = folds[0]
     y_long = (lab["out_long"].to_numpy() == 1).astype(np.int8)
@@ -299,7 +299,7 @@ def stage_wf(variant, max_folds=None, csv_path=None):
         pack = pickle.load(f)
     F, lab, valid = pack["F"], pack["lab"], pack["valid"]
     m1_pack = pack.get("m1_pack") or load_m1_pack(csv_path or RAW_CSV_DEFAULT)
-    m1_index = pd.to_datetime(m1_pack[0], unit="m")
+    m1_index = load_raw_m1(csv_path or RAW_CSV_DEFAULT).index
     folds = build_folds_m1(m1_index, CFG, GEOM["horizon_m1"])
     tuned = json.load(open(TUNED_FP))["m1sc_ad"]
     halflife = spec.get("halflife", CFG["sample_halflife_days"])
