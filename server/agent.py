@@ -105,7 +105,7 @@ def handle(msg):
             return f"(bad path)"
         ntfy_upload(RES_TOPIC, p, f"file: {rel}")
         return f"(uploaded {rel})"
-    return "(unknown command; allowed: ping status ps df gpu tail/ls/cat/get)")
+    return "(unknown command; allowed: ping status ps df gpu tail/ls/cat/get)"
 
 
 def poll():
