@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/root/rivermind-fs/xauusd/v2_ens/run_m1.py", line 468, in <module>
+    stage_tune(args.csv)
+  File "/root/rivermind-fs/xauusd/v2_ens/run_m1.py", line 252, in stage_tune
+    folds = build_folds_m1(m1_index, CFG, GEOM["horizon_m1"])
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/rivermind-fs/xauusd/v2_ens/scalp.py", line 140, in build_folds_m1
+    raise ValueError("OOS月份区间为空")
+ValueError: OOS月份区间为空
+[tune] m1sc_ad/long: LGB AUC=0.5260 XGB AUC=0.4886 (252s)
+[tune] m1sc_ad/short: LGB AUC=0.5179 XGB AUC=0.5141 (584s)
+[tune] 参数冻结 -> /root/rivermind-fs/xauusd/v2_ens/results/tuned_params_m1.json
+
+完成。
