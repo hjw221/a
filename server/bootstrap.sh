@@ -13,7 +13,7 @@ WORK=/root/rivermind-fs/.bootstrap
 
 say() { curl -s --max-time 30 -X POST "https://ntfy.sh/$RES_TOPIC" -d "$1" -H "Title: bootstrap" >/dev/null 2>&1 || true; }
 
-echo "[boot] $(date '+%F %T') bootstrap v1.1"
+echo "[boot] $(date '+%F %T') bootstrap v1.2"
 say "bootstrap start $(uname -m), $(nproc) cores"
 
 mkdir -p "$BASE" "$WORK" "$BASE/logs"
@@ -37,24 +37,32 @@ if [ "${PIPFAIL:-0}" = "1" ]; then
 fi
 echo "[boot] 依赖 OK"
 
-# ---------- 2) 拉取载荷 (GitHub 直连 -> 镜像 fallback) ----------
+# ---------- 2) 拉取载荷 (GitHub 直连 -> ghfast.top -> gh-proxy.com 镜像 fallback) ----------
+# v1.2 fix: v1.1 中 `git clone ... | tail -1` 的退出码是 tail 的(永远为 0),
+#           导致镜像 fallback 永远不会执行、直连失败时直接误报 FATAL。
+#           现改为先捕获 git 真实退出码再回显末行日志。
 cd "$WORK"
+try_clone() {
+  rm -rf a-server
+  if out=$(git clone --depth 1 -b server "$1" a-server 2>&1); then
+    echo "$out" | tail -1
+    return 0
+  fi
+  echo "$out" | tail -1
+  return 1
+}
+SRC=""
 if [ -d a-server/.git ]; then
   echo "[boot] 已有 clone, pull 更新..."
   (cd a-server && git fetch origin server --depth 1 && git reset --hard origin/server) \
-    && SRC="$WORK/a-server" || SRC=""
-else
-  echo "[boot] git clone (直连 GitHub, server 分支, shallow)..."
-  if git clone --depth 1 -b server "$REPO" a-server 2>&1 | tail -1; then
-    SRC="$WORK/a-server"
-  else
-    echo "[boot] 直连失败, 尝试镜像 ghfast.top..."
-    if git clone --depth 1 -b server "${MIRROR_PREFIX}${REPO}" a-server 2>&1 | tail -1; then
-      SRC="$WORK/a-server"
-    else
-      SRC=""
-    fi
-  fi
+    && SRC="$WORK/a-server" || { echo "[boot] pull 失败, 重新 clone..."; rm -rf a-server; }
+fi
+if [ -z "${SRC:-}" ] && [ ! -d a-server/.git ]; then
+  echo "[boot] git clone (server 分支, shallow; 直连 -> 镜像 fallback)..."
+  if try_clone "$REPO"; then SRC="$WORK/a-server"
+  elif try_clone "${MIRROR_PREFIX}${REPO}"; then SRC="$WORK/a-server"
+  elif try_clone "https://gh-proxy.com/${REPO}"; then SRC="$WORK/a-server"
+  else SRC=""; fi
 fi
 [ -n "${SRC:-}" ] && [ -f "$SRC/server/v2_ens/run_all.py" ] || { echo "FATAL: 载荷拉取失败"; say "FATAL: clone failed (direct+mirror)"; exit 1; }
 echo "[boot] 载荷就绪: $SRC/server"
