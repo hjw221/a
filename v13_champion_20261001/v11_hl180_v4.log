@@ -1,0 +1,18 @@
+[V11      2s] 加载 pack=v4 ...
+/root/rivermind-data/xauusd/stage_c/stage_c_v11.py:78: RuntimeWarning: invalid value encountered in divide
+  y_dir_target = np.where(valid, (pl - ps) / tp, np.nan)
+[V11      6s] 生成因子46 ...
+[V11      7s] 特征矩阵 (1604692, 64)
+[V11      7s] 预计算 12 方向因子因果 z ...
+[V11     35s] folds=48 (2022-08~2026-07) hl=180.0 pack=v4 threads=7
+[V11     46s]   fold 2022-08 K=0.01 td=0.00 cd=10 cum=+4.8 n=16 (L7/S9)
+[V11    107s]   fold 2023-02 K=0.05 td=0.02 cd=10 cum=-157.5 n=496 (L226/S270)
+[V11    198s]   fold 2023-08 K=0.01 td=0.00 cd=10 cum=-234.5 n=729 (L311/S418)
+[V11    314s]   fold 2024-02 K=0.02 td=0.00 cd=4 cum=-259.1 n=977 (L391/S586)
+[V11    445s]   fold 2024-08 K=0.02 td=0.02 cd=4 cum=-258.6 n=1270 (L453/S817)
+[V11    641s]   fold 2025-02 K=0.01 td=0.00 cd=10 cum=-288.0 n=1417 (L479/S938)
+[V11    776s]   fold 2025-08 K=0.01 td=0.00 cd=10 cum=-274.2 n=1641 (L508/S1133)
+[V11    929s]   fold 2026-02 K=0.05 td=0.04 cd=4 cum=-134.2 n=1953 (L586/S1367)
+[V11   1045s]   fold 2026-07 K=0.05 td=0.04 cd=4 cum=-221.5 n=2786 (L1023/S1763)
+[V11   1045s] RESULT v11_hl180_v4_s42-1337-2024: n=2786(L1023/S1763) pnl=-221.5 plr=0.75 sharpe=-0.68 min_year=-212.6
+[V11   1045s] BY_YEAR 2022:-48(204) | 2023:-213(719) | 2024:-17(429) | 2025:+40(438) | 2026:+15(996)

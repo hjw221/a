@@ -1,0 +1,19 @@
+[V12      1s] 加载 pack=v4 ...
+/root/rivermind-data/xauusd/stage_c/stage_c_v12.py:83: RuntimeWarning: invalid value encountered in divide
+  y_dir_target = np.where(valid, (pl - ps) / tp, np.nan)
+[V12      6s] 生成因子46 ...
+[V12      7s] 特征矩阵 (1604692, 64)
+[V12      7s] 趋势共识方向: sign(close-MA20d) x mom1d/10d_std ...
+[V12      7s] 方向分布: 多共识 600010 / 空共识 397653 / 中性 607029
+[V12     29s] folds=48 (2022-08~2026-07) hl=0.0 pack=v4 threads=7
+[V12     48s]   fold 2022-08 K=0.05 td=0.04 cd=10 cum=-14.4 n=70 (L21/S49)
+[V12    105s]   fold 2023-02 K=0.00 td=0.00 cd=10 cum=-65.1 n=212 (L46/S166)
+[V12    181s]   fold 2023-08 K=0.05 td=0.06 cd=4 cum=-69.4 n=257 (L69/S188)
+[V12    280s]   fold 2024-02 K=0.02 td=0.02 cd=4 cum=-85.2 n=380 (L113/S267)
+[V12    408s]   fold 2024-08 K=0.00 td=0.00 cd=10 cum=-78.0 n=606 (L230/S376)
+[V12    601s]   fold 2025-02 K=0.00 td=0.00 cd=10 cum=-111.7 n=703 (L244/S459)
+[V12    740s]   fold 2025-08 K=0.02 td=0.06 cd=4 cum=-158.0 n=1132 (L502/S630)
+[V12    856s]   fold 2026-02 K=0.02 td=0.00 cd=10 cum=-230.8 n=1667 (L1019/S648)
+[V12    976s]   fold 2026-07 K=0.00 td=0.00 cd=10 cum=-402.0 n=2193 (L1127/S1066)
+[V12    976s] RESULT v12_hl0_v4_s42-1337-2024: n=2193(L1127/S1066) pnl=-402.0 plr=0.87 sharpe=-1.26 min_year=-254.6 月交易32/空仓16
+[V12    976s] BY_YEAR 2022:-65(212) | 2023:-14(68) | 2024:-32(423) | 2025:-36(629) | 2026:-255(861)
