@@ -1,0 +1,27 @@
+{
+  "ml": {
+    "label": "ml_m1sc_ad_ens",
+    "trades": 373,
+    "win_rate": 0.5442359249329759,
+    "total_pnl": -22.742225000000467,
+    "mean_pnl": -0.06097111260053745,
+    "profit_factor": 0.9305599576937557,
+    "max_dd": 84.38935833332931,
+    "sharpe": -38.14926928149451,
+    "plr": 0.7792866640785144,
+    "avg_win": 1.501313182471249,
+    "avg_loss": -1.9265223590686122
+  },
+  "geometry": {
+    "tp_floor_usd": 1.2,
+    "tp_atr_mult": 1.5,
+    "atr_win_m1": 288,
+    "sl_mult": 0.4,
+    "sl_spread_mult": 2.0,
+    "horizon_m1": 90,
+    "entry_tol_min": 10
+  },
+  "mode": "ens",
+  "halflife": 270,
+  "n_folds_done": 24
+}
