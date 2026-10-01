@@ -1,6 +1,0 @@
-  File "/root/rivermind-fs/xauusd/agent.py", line 108
-    return "(unknown command; allowed: ping status ps df gpu tail/ls/cat/get)")
-                                                                              ^
-SyntaxError: unmatched ')'
-[cmd] ping
-[cmd] status
