@@ -1,0 +1,23 @@
+{
+  "ml": {
+    "label": "ml_scalp1",
+    "trades": 6386,
+    "win_rate": 0.39210773567178203,
+    "total_pnl": -1276.8699999999994,
+    "mean_pnl": -0.19994832445975563,
+    "profit_factor": 0.6063616218689153,
+    "max_dd": 1276.9099999999535,
+    "sharpe": -7.4868688340391865,
+    "plr": 0.9400542396546043,
+    "avg_win": 0.7855007987220447,
+    "avg_loss": -0.8355909325090158
+  },
+  "geometry": {
+    "tp_usd": 1.0,
+    "sl_usd": 0.4,
+    "horizon_m1": 30,
+    "spread_floor_mult": 3.0
+  },
+  "train_stride": 1,
+  "n_folds_done": 24
+}

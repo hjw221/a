@@ -1,0 +1,54 @@
+{
+  "ml": {
+    "label": "ml_legacy",
+    "trades": 3388,
+    "win_rate": 0.3925619834710744,
+    "total_pnl": 1281.5498349423574,
+    "mean_pnl": 0.3782614624977442,
+    "profit_factor": 1.1043033530471698,
+    "max_dd": 335.93134672117867,
+    "sharpe": 1.1322757375085692
+  },
+  "baselines": {
+    "always_long": {
+      "label": "always_long",
+      "trades": 16250,
+      "win_rate": 0.37723076923076926,
+      "total_pnl": -3061.0270869027827,
+      "mean_pnl": -0.18837089765555587,
+      "profit_factor": 0.9361922551542264,
+      "max_dd": 3131.1214034465393,
+      "sharpe": -2.298788393096658
+    },
+    "always_short": {
+      "label": "always_short",
+      "trades": 16453,
+      "win_rate": 0.36832188658603293,
+      "total_pnl": -1838.1917375031258,
+      "mean_pnl": -0.1117238034099025,
+      "profit_factor": 0.9617634025355709,
+      "max_dd": 3233.3451752798505,
+      "sharpe": -1.3888453139131005
+    },
+    "random_coin": {
+      "label": "random_coin",
+      "trades": 16309,
+      "win_rate": 0.37292292599178367,
+      "total_pnl": -2926.66476127882,
+      "mean_pnl": -0.17945090203438716,
+      "profit_factor": 0.9392827899417691,
+      "max_dd": 3241.0586451555832,
+      "sharpe": -2.3408567527327473
+    },
+    "random_matched": {
+      "label": "random_matched",
+      "trades": 5694,
+      "win_rate": 0.37284861257463997,
+      "total_pnl": -918.9515637184041,
+      "mean_pnl": -0.1613894562203028,
+      "profit_factor": 0.9517395879532999,
+      "max_dd": 1036.7882271677106,
+      "sharpe": -1.0721245550977223
+    }
+  }
+}

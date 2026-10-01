@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Noto+Serif+SC:wght@400;700;900&family=Inter:wght@300;400;500&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    @page { size: 794px 1123px; margin: 0; }
+    :root {
+      --c-bg: #0b0b0a;
+      --c-accent: #caaf5e;
+      --c-text: #e8e8e6;
+      --c-muted: #85837b;
+      --c-footer: #6a6860;
+    }
+    html, body { margin: 0; padding: 0; width: 794px; height: 1123px; background: var(--c-bg); color: var(--c-text); font-family: 'Inter', 'Noto Sans SC', sans-serif; }
+    @media screen {
+      html { height: auto; display: flex; justify-content: center; min-height: 100vh; background: var(--c-bg); }
+      body { transform-origin: top center; scale: min(1, calc(100vw / 794), calc(100vh / 1123)); margin: 0 auto; box-shadow: 0 0 60px rgba(0,0,0,0.3); }
+    }
+    .cover { width: 794px; height: 1123px; position: relative; box-sizing: border-box; }
+    .vline { position: absolute; left: 45px; top: 76px; bottom: 76px; width: 2.5px; background: var(--c-accent); }
+    .content { position: absolute; left: 100px; right: 76px; top: 0; bottom: 0; }
+    .label { position: absolute; top: 132px; font-size: 9pt; color: var(--c-accent); letter-spacing: 3px; text-transform: uppercase; font-family: 'Inter', 'Noto Sans SC', sans-serif; }
+    .title { position: absolute; top: 210px; font-size: 30pt; font-weight: 700; line-height: 1.32; font-family: 'Noto Serif SC', 'Playfair Display', serif; color: var(--c-text); max-width: 600px; }
+    .subtitle { position: absolute; top: 500px; font-size: 12pt; line-height: 1.65; color: var(--c-muted); max-width: 520px; }
+    .statrow { position: absolute; top: 690px; display: flex; gap: 44px; }
+    .stat .n { font-size: 20pt; font-weight: 700; color: var(--c-accent); font-family: 'Playfair Display', 'Noto Serif SC', serif; }
+    .stat .t { font-size: 8.5pt; color: var(--c-muted); margin-top: 6px; letter-spacing: 0.5px; }
+    .authors { position: absolute; top: 840px; font-size: 12pt; color: var(--c-text); }
+    .institution { position: absolute; top: 880px; font-size: 10pt; color: var(--c-muted); line-height: 1.5; }
+    .footer { position: absolute; bottom: 76px; left: 0; right: 0; display: flex; justify-content: space-between; font-size: 9pt; color: var(--c-footer); }
+  </style>
+</head>
+<body>
+  <div class="cover">
+    <div class="vline"></div>
+    <div class="content">
+      <div class="label">量化模型升级 · 走查验证报告</div>
+      <div class="title">XAUUSD 多空模型<br>防泄露升级与<br>24个月走查验证</div>
+      <div class="subtitle">基于 2022-01 至 2026-07 全量 M1 数据重构训练管线：修复四处数据泄露、
+        ATR 自适应止盈止损、purged 月度滚动走查。全部数字来自真实样本外运行，
+        含 Bootstrap 置信区间与四组消融对照。</div>
+      <div class="statrow">
+        <div class="stat"><div class="n">+$1,281</div><div class="t">最优组合 OOS 总PnL</div></div>
+        <div class="stat"><div class="n">3,388</div><div class="t">样本外交易笔数</div></div>
+        <div class="stat"><div class="n">24 个月</div><div class="t">逐月滚动验证</div></div>
+        <div class="stat"><div class="n">95% CI</div><div class="t">[$134, $2,408] 不含零</div></div>
+      </div>
+      <div class="authors">XAUUSD ML v2 管线</div>
+      <div class="institution">数据: XAUUSDc M1 (1,604,692 根) · 训练: LightGBM + XGBoost 概率集成<br>
+        验证期: 2024-08 ~ 2026-07 · 环境: 2核 CPU / Python 3.12</div>
+      <div class="footer">
+        <span>WALK-FORWARD VALIDATION REPORT</span>
+        <span>2026-09-05</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

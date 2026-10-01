@@ -1,0 +1,184 @@
+{
+  "fold": 9,
+  "oos_month": "2025-05",
+  "window": "2022-05~2025-04",
+  "train_months": 36,
+  "thr_long": 0.3723878636885166,
+  "thr_short": 0.28518096408357624,
+  "members": [
+    {
+      "direction": "long",
+      "kind": "lgb",
+      "seed": 42,
+      "file": "long_lgb_s42.onnx",
+      "weight": 0.2330544952711627,
+      "rounds": 98,
+      "auc_val": 0.5192969783004806,
+      "native_file": "long_lgb_s42.txt"
+    },
+    {
+      "direction": "long",
+      "kind": "xgb",
+      "seed": 42,
+      "file": "long_xgb_s42.onnx",
+      "weight": 0.17259416200558453,
+      "rounds": 48,
+      "auc_val": 0.5142908455601178,
+      "native_file": "long_xgb_s42.json"
+    },
+    {
+      "direction": "long",
+      "kind": "lgb",
+      "seed": 1337,
+      "file": "long_lgb_s1337.onnx",
+      "weight": 0.1870565073507265,
+      "rounds": 79,
+      "auc_val": 0.5154883318560786,
+      "native_file": "long_lgb_s1337.txt"
+    },
+    {
+      "direction": "long",
+      "kind": "xgb",
+      "seed": 1337,
+      "file": "long_xgb_s1337.onnx",
+      "weight": 0.21771490127570223,
+      "rounds": 52,
+      "auc_val": 0.5180268555674942,
+      "native_file": "long_xgb_s1337.json"
+    },
+    {
+      "direction": "long",
+      "kind": "lgb",
+      "seed": 2024,
+      "file": "long_lgb_s2024.onnx",
+      "weight": 0.18957993409682403,
+      "rounds": 52,
+      "auc_val": 0.5156972723062752,
+      "native_file": "long_lgb_s2024.txt"
+    },
+    {
+      "direction": "short",
+      "kind": "lgb",
+      "seed": 42,
+      "file": "short_lgb_s42.onnx",
+      "weight": 0.12352130992157195,
+      "rounds": 37,
+      "auc_val": 0.5156673260806016,
+      "native_file": "short_lgb_s42.txt"
+    },
+    {
+      "direction": "short",
+      "kind": "xgb",
+      "seed": 42,
+      "file": "short_xgb_s42.onnx",
+      "weight": 0.17548094846182416,
+      "rounds": 76,
+      "auc_val": 0.5222578374713666,
+      "native_file": "short_xgb_s42.json"
+    },
+    {
+      "direction": "short",
+      "kind": "lgb",
+      "seed": 1337,
+      "file": "short_lgb_s1337.onnx",
+      "weight": 0.17871369783840338,
+      "rounds": 16,
+      "auc_val": 0.5226678763436218,
+      "native_file": "short_lgb_s1337.txt"
+    },
+    {
+      "direction": "short",
+      "kind": "xgb",
+      "seed": 1337,
+      "file": "short_xgb_s1337.onnx",
+      "weight": 0.18379747210435235,
+      "rounds": 110,
+      "auc_val": 0.523312697461495,
+      "native_file": "short_xgb_s1337.json"
+    },
+    {
+      "direction": "short",
+      "kind": "lgb",
+      "seed": 2024,
+      "file": "short_lgb_s2024.onnx",
+      "weight": 0.16694801125944853,
+      "rounds": 36,
+      "auc_val": 0.521175527790067,
+      "native_file": "short_lgb_s2024.txt"
+    },
+    {
+      "direction": "short",
+      "kind": "xgb",
+      "seed": 2024,
+      "file": "short_xgb_s2024.onnx",
+      "weight": 0.17153856041439963,
+      "rounds": 125,
+      "auc_val": 0.5217577887015269,
+      "native_file": "short_xgb_s2024.json"
+    }
+  ],
+  "n_zero_weight_skipped": 1,
+  "self_test": {
+    "bar_time": "2025-05-30 20:55:00",
+    "features": [
+      0.5429548025131226,
+      0.8635920286178589,
+      0.7870542407035828,
+      0.7181904911994934,
+      -1.7063546180725098,
+      -1.2319080829620361,
+      -4.757360458374023,
+      -8.910338401794434,
+      -1.3983776569366455,
+      0.20494873821735382,
+      0.09715010970830917,
+      0.06710322946310043,
+      0.02169530652463436,
+      -0.030749347060918808,
+      -10.937068939208984,
+      5.997203350067139,
+      0.35414591431617737,
+      93.0,
+      83.0,
+      -0.30000001192092896,
+      -0.22419117391109467,
+      -2.9308741092681885,
+      -0.7318552136421204,
+      0.4617442786693573,
+      -0.5509188175201416,
+      0.05742725729942322,
+      0.3916538953781128,
+      -0.7223639488220215,
+      0.6915130615234375,
+      -0.4338837265968323,
+      -0.9009688496589661,
+      0.0,
+      1.0,
+      1.0
+    ],
+    "expected_pl": 0.387031,
+    "expected_ps": 0.202456
+  },
+  "verification": {
+    "fold": 9,
+    "oos_month": "2025-05",
+    "max_auc_diff": 0.0,
+    "max_weight_diff": 0.0,
+    "thr_recompute_diff": [
+      0.0,
+      0.0
+    ],
+    "trades_re": 92,
+    "trades_ck": 92,
+    "log_cols_eq": {
+      "dir": true,
+      "outcome": true,
+      "pnl": true,
+      "prob": true,
+      "entry_time": true,
+      "exit_time": true
+    },
+    "trades_match": true,
+    "pass": true
+  }
+}

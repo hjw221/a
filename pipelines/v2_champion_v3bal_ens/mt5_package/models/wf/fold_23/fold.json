@@ -1,0 +1,184 @@
+{
+  "fold": 23,
+  "oos_month": "2026-07",
+  "window": "2023-07~2026-06",
+  "train_months": 36,
+  "thr_long": 0.33294979215980286,
+  "thr_short": 0.2856164039388615,
+  "members": [
+    {
+      "direction": "long",
+      "kind": "xgb",
+      "seed": 42,
+      "file": "long_xgb_s42.onnx",
+      "weight": 0.22948505543078598,
+      "rounds": 2,
+      "auc_val": 0.5190555593426813,
+      "native_file": "long_xgb_s42.json"
+    },
+    {
+      "direction": "long",
+      "kind": "lgb",
+      "seed": 1337,
+      "file": "long_lgb_s1337.onnx",
+      "weight": 0.18773956102270134,
+      "rounds": 4,
+      "auc_val": 0.5155891735055315,
+      "native_file": "long_lgb_s1337.txt"
+    },
+    {
+      "direction": "long",
+      "kind": "xgb",
+      "seed": 1337,
+      "file": "long_xgb_s1337.onnx",
+      "weight": 0.15900791352044508,
+      "rounds": 15,
+      "auc_val": 0.513203407630867,
+      "native_file": "long_xgb_s1337.json"
+    },
+    {
+      "direction": "long",
+      "kind": "lgb",
+      "seed": 2024,
+      "file": "long_lgb_s2024.onnx",
+      "weight": 0.25456519842912556,
+      "rounds": 1,
+      "auc_val": 0.5211381182802586,
+      "native_file": "long_lgb_s2024.txt"
+    },
+    {
+      "direction": "long",
+      "kind": "xgb",
+      "seed": 2024,
+      "file": "long_xgb_s2024.onnx",
+      "weight": 0.16920227159694204,
+      "rounds": 1,
+      "auc_val": 0.514049908048607,
+      "native_file": "long_xgb_s2024.json"
+    },
+    {
+      "direction": "short",
+      "kind": "lgb",
+      "seed": 42,
+      "file": "short_lgb_s42.onnx",
+      "weight": 0.2373233866692691,
+      "rounds": 4,
+      "auc_val": 0.5283610737952111,
+      "native_file": "short_lgb_s42.txt"
+    },
+    {
+      "direction": "short",
+      "kind": "xgb",
+      "seed": 42,
+      "file": "short_xgb_s42.onnx",
+      "weight": 0.1384435906384141,
+      "rounds": 134,
+      "auc_val": 0.516544551068799,
+      "native_file": "short_xgb_s42.json"
+    },
+    {
+      "direction": "short",
+      "kind": "lgb",
+      "seed": 1337,
+      "file": "short_lgb_s1337.onnx",
+      "weight": 0.1818995666829866,
+      "rounds": 66,
+      "auc_val": 0.5217377103302611,
+      "native_file": "short_lgb_s1337.txt"
+    },
+    {
+      "direction": "short",
+      "kind": "xgb",
+      "seed": 1337,
+      "file": "short_xgb_s1337.onnx",
+      "weight": 0.1376708289440959,
+      "rounds": 32,
+      "auc_val": 0.5164522030210729,
+      "native_file": "short_xgb_s1337.json"
+    },
+    {
+      "direction": "short",
+      "kind": "lgb",
+      "seed": 2024,
+      "file": "short_lgb_s2024.onnx",
+      "weight": 0.17697688607640744,
+      "rounds": 9,
+      "auc_val": 0.5211494307261612,
+      "native_file": "short_lgb_s2024.txt"
+    },
+    {
+      "direction": "short",
+      "kind": "xgb",
+      "seed": 2024,
+      "file": "short_xgb_s2024.onnx",
+      "weight": 0.12768574098882687,
+      "rounds": 1,
+      "auc_val": 0.51525894592018,
+      "native_file": "short_xgb_s2024.json"
+    }
+  ],
+  "n_zero_weight_skipped": 1,
+  "self_test": {
+    "bar_time": "2026-07-17 20:55:00",
+    "features": [
+      0.6569274663925171,
+      0.7055245041847229,
+      1.2911378145217896,
+      1.0,
+      0.5219839811325073,
+      0.5822963714599609,
+      11.166682243347168,
+      8.220054626464844,
+      0.3764098882675171,
+      0.16426783800125122,
+      0.20532141625881195,
+      0.058382295072078705,
+      0.062303006649017334,
+      0.026559649035334587,
+      -1.3177601099014282,
+      12.66819953918457,
+      0.9057797789573669,
+      55.0,
+      95.0,
+      0.5,
+      2.4652791023254395,
+      5.158055782318115,
+      -0.9866905808448792,
+      0.496669739484787,
+      0.353628545999527,
+      0.3247232437133789,
+      0.3216482102870941,
+      -0.7223639488220215,
+      0.6915130615234375,
+      -0.4338837265968323,
+      -0.9009688496589661,
+      0.0,
+      1.0,
+      1.0
+    ],
+    "expected_pl": 0.288098,
+    "expected_ps": 0.253803
+  },
+  "verification": {
+    "fold": 23,
+    "oos_month": "2026-07",
+    "max_auc_diff": 0.0,
+    "max_weight_diff": 0.0,
+    "thr_recompute_diff": [
+      0.0,
+      0.0
+    ],
+    "trades_re": 32,
+    "trades_ck": 32,
+    "log_cols_eq": {
+      "dir": true,
+      "outcome": true,
+      "pnl": true,
+      "prob": true,
+      "entry_time": true,
+      "exit_time": true
+    },
+    "trades_match": true,
+    "pass": true
+  }
+}

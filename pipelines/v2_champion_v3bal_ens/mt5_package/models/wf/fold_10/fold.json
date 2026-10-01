@@ -1,0 +1,184 @@
+{
+  "fold": 10,
+  "oos_month": "2025-06",
+  "window": "2022-06~2025-05",
+  "train_months": 36,
+  "thr_long": 0.3604456987295412,
+  "thr_short": 0.2900425313935743,
+  "members": [
+    {
+      "direction": "long",
+      "kind": "lgb",
+      "seed": 42,
+      "file": "long_lgb_s42.onnx",
+      "weight": 0.14588015093762996,
+      "rounds": 15,
+      "auc_val": 0.514443072771257,
+      "native_file": "long_lgb_s42.txt"
+    },
+    {
+      "direction": "long",
+      "kind": "xgb",
+      "seed": 42,
+      "file": "long_xgb_s42.onnx",
+      "weight": 0.16279802134639185,
+      "rounds": 19,
+      "auc_val": 0.5161180507026475,
+      "native_file": "long_xgb_s42.json"
+    },
+    {
+      "direction": "long",
+      "kind": "lgb",
+      "seed": 1337,
+      "file": "long_lgb_s1337.onnx",
+      "weight": 0.2569700799182797,
+      "rounds": 12,
+      "auc_val": 0.525441689910797,
+      "native_file": "long_lgb_s1337.txt"
+    },
+    {
+      "direction": "long",
+      "kind": "lgb",
+      "seed": 2024,
+      "file": "long_lgb_s2024.onnx",
+      "weight": 0.2484809882509665,
+      "rounds": 50,
+      "auc_val": 0.5246012152614028,
+      "native_file": "long_lgb_s2024.txt"
+    },
+    {
+      "direction": "long",
+      "kind": "xgb",
+      "seed": 2024,
+      "file": "long_xgb_s2024.onnx",
+      "weight": 0.185870759546732,
+      "rounds": 24,
+      "auc_val": 0.5184024001135701,
+      "native_file": "long_xgb_s2024.json"
+    },
+    {
+      "direction": "short",
+      "kind": "lgb",
+      "seed": 42,
+      "file": "short_lgb_s42.onnx",
+      "weight": 0.1572579462972922,
+      "rounds": 212,
+      "auc_val": 0.5230993956617123,
+      "native_file": "short_lgb_s42.txt"
+    },
+    {
+      "direction": "short",
+      "kind": "xgb",
+      "seed": 42,
+      "file": "short_xgb_s42.onnx",
+      "weight": 0.15433848870395167,
+      "rounds": 600,
+      "auc_val": 0.5226705606956326,
+      "native_file": "short_xgb_s42.json"
+    },
+    {
+      "direction": "short",
+      "kind": "lgb",
+      "seed": 1337,
+      "file": "short_lgb_s1337.onnx",
+      "weight": 0.1519613596676567,
+      "rounds": 1,
+      "auc_val": 0.5223213875985573,
+      "native_file": "short_lgb_s1337.txt"
+    },
+    {
+      "direction": "short",
+      "kind": "xgb",
+      "seed": 1337,
+      "file": "short_xgb_s1337.onnx",
+      "weight": 0.1773191471487222,
+      "rounds": 140,
+      "auc_val": 0.5260461568704604,
+      "native_file": "short_xgb_s1337.json"
+    },
+    {
+      "direction": "short",
+      "kind": "lgb",
+      "seed": 2024,
+      "file": "short_lgb_s2024.onnx",
+      "weight": 0.17267977348691324,
+      "rounds": 2,
+      "auc_val": 0.5253646858837158,
+      "native_file": "short_lgb_s2024.txt"
+    },
+    {
+      "direction": "short",
+      "kind": "xgb",
+      "seed": 2024,
+      "file": "short_xgb_s2024.onnx",
+      "weight": 0.18644328469546398,
+      "rounds": 96,
+      "auc_val": 0.527386388434121,
+      "native_file": "short_xgb_s2024.json"
+    }
+  ],
+  "n_zero_weight_skipped": 1,
+  "self_test": {
+    "bar_time": "2025-06-30 23:55:00",
+    "features": [
+      0.7996011972427368,
+      0.8967374563217163,
+      1.2789366245269775,
+      0.5618358254432678,
+      0.40898776054382324,
+      5.754133701324463,
+      10.172185897827148,
+      19.94892120361328,
+      -1.0295456647872925,
+      0.39611002802848816,
+      0.26875847578048706,
+      0.13321608304977417,
+      0.10829047113656998,
+      0.048963408917188644,
+      -0.8864820003509521,
+      21.735424041748047,
+      0.9608131051063538,
+      13.0,
+      93.0,
+      0.10000000149011612,
+      4.93798303604126,
+      9.92477035522461,
+      -0.9068867564201355,
+      0.6881066560745239,
+      0.3842634856700897,
+      0.06450137495994568,
+      0.5512351393699646,
+      -0.02181488461792469,
+      0.9997619986534119,
+      0.0,
+      1.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "expected_pl": 0.215406,
+    "expected_ps": 0.288084
+  },
+  "verification": {
+    "fold": 10,
+    "oos_month": "2025-06",
+    "max_auc_diff": 0.0,
+    "max_weight_diff": 0.0,
+    "thr_recompute_diff": [
+      0.0,
+      0.0
+    ],
+    "trades_re": 50,
+    "trades_ck": 50,
+    "log_cols_eq": {
+      "dir": true,
+      "outcome": true,
+      "pnl": true,
+      "prob": true,
+      "entry_time": true,
+      "exit_time": true
+    },
+    "trades_match": true,
+    "pass": true
+  }
+}

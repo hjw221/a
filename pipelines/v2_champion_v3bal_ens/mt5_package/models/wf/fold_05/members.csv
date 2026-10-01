@@ -1,0 +1,7 @@
+long,lgb,long_lgb_s2024.onnx,1
+short,lgb,short_lgb_s42.onnx,0.1631026181
+short,xgb,short_xgb_s42.onnx,0.1735238614
+short,lgb,short_lgb_s1337.onnx,0.2259782258
+short,xgb,short_xgb_s1337.onnx,0.1742319551
+short,lgb,short_lgb_s2024.onnx,0.1370834463
+short,xgb,short_xgb_s2024.onnx,0.1260798933

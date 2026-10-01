@@ -1,0 +1,111 @@
+{
+  "n_samples": 138904,
+  "high_corr_pairs": [
+    {
+      "a": "atr_ratio",
+      "b": "atr_z",
+      "pear": 0.971,
+      "spear": 0.98
+    },
+    {
+      "a": "atr_ratio",
+      "b": "rv_ratio_60_1440",
+      "pear": 0.96,
+      "spear": 0.956
+    },
+    {
+      "a": "atr_z",
+      "b": "rv_ratio_60_1440",
+      "pear": 0.947,
+      "spear": 0.92
+    },
+    {
+      "a": "ma_ema20_dist",
+      "b": "ret_15",
+      "pear": 0.894,
+      "spear": 0.879
+    },
+    {
+      "a": "atr_lvl",
+      "b": "atr_ratio",
+      "pear": 0.81,
+      "spear": 0.812
+    },
+    {
+      "a": "rng_range_z60",
+      "b": "vol_ratio60",
+      "pear": 0.792,
+      "spear": 0.797
+    },
+    {
+      "a": "atr_lvl",
+      "b": "atr_z",
+      "pear": 0.789,
+      "spear": 0.793
+    },
+    {
+      "a": "ma_ema20_dist",
+      "b": "ret_5",
+      "pear": 0.779,
+      "spear": 0.75
+    },
+    {
+      "a": "atr_ratio",
+      "b": "rv_1440",
+      "pear": -0.772,
+      "spear": -0.977
+    },
+    {
+      "a": "rv_1440",
+      "b": "rv_ratio_60_1440",
+      "pear": -0.772,
+      "spear": -0.974
+    },
+    {
+      "a": "atr_lvl",
+      "b": "rv_ratio_60_1440",
+      "pear": 0.764,
+      "spear": 0.753
+    },
+    {
+      "a": "ret_3",
+      "b": "ret_5",
+      "pear": 0.754,
+      "spear": 0.728
+    },
+    {
+      "a": "atr_z",
+      "b": "rv_1440",
+      "pear": -0.75,
+      "spear": -0.94
+    },
+    {
+      "a": "ret_1",
+      "b": "rng_close_pos",
+      "pear": 0.741,
+      "spear": 0.789
+    }
+  ],
+  "corr_with_z": {
+    "rv_ratio_60_1440": -0.2704,
+    "rv_1440": 0.2628,
+    "atr_z": -0.2586,
+    "atr_ratio": -0.2555,
+    "day_vs_open": -0.2466,
+    "atr_lvl": -0.1828,
+    "sess_ny": -0.1605,
+    "sess_h_cos": 0.1555,
+    "day_dist_hi": 0.1479,
+    "ma_ema20_dist": -0.102,
+    "vol_ratio60": 0.1018,
+    "ret_15": -0.0907,
+    "rng_range_z60": 0.0897,
+    "ret_5": -0.0686,
+    "rv_15": 0.0604,
+    "ret_3": -0.0549,
+    "rng_run": -0.0367,
+    "ret_1": -0.0316,
+    "rng_close_pos": -0.0246,
+    "sess_london": -0.0004
+  }
+}

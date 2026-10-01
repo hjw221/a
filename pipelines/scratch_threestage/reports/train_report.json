@@ -1,0 +1,64 @@
+{
+ "wf": {
+  "folds": 24,
+  "purge_bars": 241,
+  "train_window_months": 24,
+  "thr_quantile": 0.85,
+  "thr": {
+   "long": 0.3505904536523506,
+   "short": 0.33660182233294555
+  }
+ },
+ "main": {
+  "main_cost_0.06": {
+   "n": 783,
+   "win_rate": 0.3716,
+   "plr": 1.905,
+   "pnl_total": 455.21,
+   "pnl_per_trade": 0.5814,
+   "sharpe_d": 0.452,
+   "maxdd": -350.69,
+   "avg_hold_min": 90.3,
+   "years": 1.95,
+   "long_n": 444,
+   "short_n": 339,
+   "long_pnl": 161.56,
+   "short_pnl": 293.65
+  }
+ },
+ "stress": {
+  "stress_cost_0.10": {
+   "n": 783,
+   "win_rate": 0.3716,
+   "plr": 1.889,
+   "pnl_total": 423.89,
+   "pnl_per_trade": 0.5414,
+   "sharpe_d": 0.421,
+   "maxdd": -364.17,
+   "avg_hold_min": 90.3,
+   "years": 1.95,
+   "long_n": 444,
+   "short_n": 339,
+   "long_pnl": 143.8,
+   "short_pnl": 280.09
+  }
+ },
+ "random_control": {
+  "mean": -16.74,
+  "ci5_95": [
+   -844.89,
+   828.35
+  ]
+ },
+ "model_bootstrap_ci": [
+  -205.12,
+  1147.52
+ ],
+ "old_baseline_v3bal_ens": {
+  "n": 1611,
+  "win_rate": 0.316,
+  "plr": 2.57,
+  "pnl": 1113.5,
+  "sharpe": 1.74
+ }
+}

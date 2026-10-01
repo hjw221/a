@@ -1,0 +1,130 @@
+{
+  "n_features": 55,
+  "n_rows": 1661992,
+  "truncation_check": {
+    "pass": true,
+    "bad_cols": []
+  },
+  "spot_check": true,
+  "groups": {
+    "momentum": [
+      "A_ret_1",
+      "A_ret_5",
+      "A_ret_15",
+      "A_ret_30",
+      "A_ret_60",
+      "A_ret_240",
+      "A_ret_1440",
+      "A_emax_8_32",
+      "A_emax_32_128",
+      "A_emax_128_512",
+      "A_er_30",
+      "A_er_240",
+      "A_align_30",
+      "A_align_240"
+    ],
+    "volatility": [
+      "B_atr_15",
+      "B_atr_60",
+      "B_atr_240",
+      "B_atr_1440",
+      "B_rv_60",
+      "B_rv_240",
+      "B_rv_1440",
+      "B_pk_240",
+      "B_gk_240",
+      "B_volratio",
+      "B_atr_regime",
+      "B_jump_60"
+    ],
+    "structure": [
+      "C_pos_60",
+      "C_pos_240",
+      "C_pos_1440",
+      "C_dist_high_240",
+      "C_dist_low_240",
+      "C_bsh_240",
+      "C_bsl_1440",
+      "C_day_pos",
+      "C_day_ret",
+      "C_gap_open"
+    ],
+    "pattern": [
+      "D_body",
+      "D_ushadow",
+      "D_lshadow",
+      "D_range_atr",
+      "D_inside_bar",
+      "D_two_bar_drive"
+    ],
+    "time": [
+      "E_hour_sin",
+      "E_hour_cos",
+      "E_dow",
+      "E_sess_asia",
+      "E_sess_eu",
+      "E_sess_us",
+      "E_sess_off"
+    ],
+    "microstructure": [
+      "F_tvol_z",
+      "F_tvol_ratio",
+      "F_tvol_trend",
+      "F_volret_corr",
+      "F_tvol_surge",
+      "F_spread_atr"
+    ]
+  },
+  "na_pct_top10": [
+    {
+      "name": "A_ret_1440",
+      "group": "momentum",
+      "na_pct": 0.08664301633220857
+    },
+    {
+      "name": "B_atr_regime",
+      "group": "volatility",
+      "na_pct": 0.08658284757086676
+    },
+    {
+      "name": "C_gap_open",
+      "group": "structure",
+      "na_pct": 0.08501845977597966
+    },
+    {
+      "name": "C_bsl_1440",
+      "group": "structure",
+      "na_pct": 0.05036125324309623
+    },
+    {
+      "name": "B_rv_1440",
+      "group": "volatility",
+      "na_pct": 0.043321508166104285
+    },
+    {
+      "name": "B_volratio",
+      "group": "volatility",
+      "na_pct": 0.043321508166104285
+    },
+    {
+      "name": "C_pos_1440",
+      "group": "structure",
+      "na_pct": 0.043261339404762476
+    },
+    {
+      "name": "F_tvol_z",
+      "group": "microstructure",
+      "na_pct": 0.043261339404762476
+    },
+    {
+      "name": "F_tvol_trend",
+      "group": "microstructure",
+      "na_pct": 0.043261339404762476
+    },
+    {
+      "name": "C_bsh_240",
+      "group": "structure",
+      "na_pct": 0.038869019826810236
+    }
+  ]
+}

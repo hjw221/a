@@ -1,0 +1,185 @@
+{
+  "variants": {
+    "v3bal": {
+      "label": "v3bal",
+      "trades": 1331,
+      "win_rate": 0.3216,
+      "total_pnl": 596.2,
+      "mean_pnl": 0.4479,
+      "profit_factor": 1.1361251610348242,
+      "max_dd": 250.0,
+      "sharpe": 1.333,
+      "plr": 2.397,
+      "avg_win": 11.63,
+      "avg_loss": -4.85,
+      "ci95_mean": [
+        -0.0951,
+        1.0041
+      ],
+      "ci95_total": [
+        -126.6,
+        1336.5
+      ],
+      "ci_excludes_zero": false,
+      "trades_per_day": 2.6,
+      "long_pnl": 288.8,
+      "long_trades": 595,
+      "short_pnl": 307.4,
+      "short_trades": 736,
+      "top2_month_pnl_share": 0.348,
+      "profit_months": 18
+    },
+    "v3bal_ens": {
+      "label": "v3bal_ens",
+      "trades": 1611,
+      "win_rate": 0.316,
+      "total_pnl": 1113.5,
+      "mean_pnl": 0.6912,
+      "profit_factor": 1.1848795497224536,
+      "max_dd": 299.6,
+      "sharpe": 1.736,
+      "plr": 2.565,
+      "avg_win": 14.02,
+      "avg_loss": -5.47,
+      "ci95_mean": [
+        0.1366,
+        1.2539
+      ],
+      "ci95_total": [
+        220.0,
+        2020.0
+      ],
+      "ci_excludes_zero": true,
+      "trades_per_day": 3.2,
+      "long_pnl": 298.8,
+      "long_trades": 749,
+      "short_pnl": 814.8,
+      "short_trades": 862,
+      "top2_month_pnl_share": 0.536,
+      "profit_months": 15
+    },
+    "v3ma10": {
+      "label": "v3ma10",
+      "trades": 1848,
+      "win_rate": 0.29,
+      "total_pnl": -16.7,
+      "mean_pnl": -0.0091,
+      "profit_factor": 0.9976463366355548,
+      "max_dd": 608.6,
+      "sharpe": -0.037,
+      "plr": 2.442,
+      "avg_win": 13.23,
+      "avg_loss": -5.42,
+      "ci95_mean": [
+        -0.5106,
+        0.4918
+      ],
+      "ci95_total": [
+        -943.6,
+        908.8
+      ],
+      "ci_excludes_zero": false,
+      "trades_per_day": 3.6,
+      "long_pnl": -37.6,
+      "long_trades": 796,
+      "short_pnl": 20.8,
+      "short_trades": 1052,
+      "top2_month_pnl_share": 0.764,
+      "profit_months": 11
+    },
+    "v3ma10_ens": {
+      "label": "v3ma10_ens",
+      "trades": 1464,
+      "win_rate": 0.2971,
+      "total_pnl": 294.6,
+      "mean_pnl": 0.2012,
+      "profit_factor": 1.0561988718860007,
+      "max_dd": 299.0,
+      "sharpe": 0.594,
+      "plr": 2.498,
+      "avg_win": 12.73,
+      "avg_loss": -5.09,
+      "ci95_mean": [
+        -0.3517,
+        0.7548
+      ],
+      "ci95_total": [
+        -514.9,
+        1105.0
+      ],
+      "ci_excludes_zero": false,
+      "trades_per_day": 2.9,
+      "long_pnl": -92.6,
+      "long_trades": 698,
+      "short_pnl": 387.1,
+      "short_trades": 766,
+      "top2_month_pnl_share": 0.525,
+      "profit_months": 12
+    }
+  },
+  "attribution": {
+    "单种子: +MA10特征": {
+      "pnl_delta": -612.9,
+      "sharpe_delta": -1.37,
+      "wr_delta_pp": -3.2,
+      "plr_delta": 0.045,
+      "trades_delta": 517
+    },
+    "集成: +MA10特征": {
+      "pnl_delta": -818.9,
+      "sharpe_delta": -1.14,
+      "wr_delta_pp": -1.9,
+      "plr_delta": -0.067,
+      "trades_delta": -147
+    },
+    "34特征下集成增益": {
+      "pnl_delta": 517.3,
+      "sharpe_delta": 0.4
+    },
+    "37特征下集成增益": {
+      "pnl_delta": 311.3,
+      "sharpe_delta": 0.63
+    }
+  },
+  "note": "OOS 2024-08~2026-07 (24个月, expanding window, purge+embargo); 四变体同bal几何(TP=3xATR/SL=1.143xATR/6h)同param_src=v3同plr_wr; 唯一变量=MA10特征块",
+  "oos_auc_mean": {
+    "v3bal": {
+      "long": 0.504,
+      "short": 0.5126
+    },
+    "v3bal_ens": {
+      "long": 0.5064,
+      "short": 0.5125
+    },
+    "v3ma10": {
+      "long": 0.5018,
+      "short": 0.5152
+    },
+    "v3ma10_ens": {
+      "long": 0.5033,
+      "short": 0.5125
+    }
+  },
+  "model_edge_vs_samefreq_random": {
+    "v3bal": {
+      "ml_pnl": 596.2,
+      "random_matched_pnl": -400.1,
+      "model_edge": 996.3
+    },
+    "v3bal_ens": {
+      "ml_pnl": 1113.5,
+      "random_matched_pnl": -897.3,
+      "model_edge": 2010.9
+    },
+    "v3ma10": {
+      "ml_pnl": -16.7,
+      "random_matched_pnl": -1839.7,
+      "model_edge": 1822.9
+    },
+    "v3ma10_ens": {
+      "ml_pnl": 294.6,
+      "random_matched_pnl": -29.2,
+      "model_edge": 323.7
+    }
+  }
+}

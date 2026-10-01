@@ -1,0 +1,169 @@
+{
+  "variant": "v3bal_ens",
+  "feature_set": "v334",
+  "long_threshold": 0.3396933243033059,
+  "short_threshold": 0.26784653516621754,
+  "features_list": [
+    "atr_ratio",
+    "tr_over_atr",
+    "squeeze",
+    "range_ratio",
+    "momn_12",
+    "momn_48",
+    "momn_96",
+    "momn_288",
+    "mom_acc",
+    "er_24",
+    "er_96",
+    "er_288",
+    "slope_96",
+    "slope_288",
+    "dist_hi_288",
+    "dist_lo_288",
+    "pos_in_range",
+    "bars_since_hi96",
+    "bars_since_lo96",
+    "run_len",
+    "c_dist_s4h",
+    "c_dist_d1",
+    "vol_z_288",
+    "vol_ratio_24_288",
+    "body",
+    "upper_shadow",
+    "lower_shadow",
+    "hour_sin",
+    "hour_cos",
+    "dow_sin",
+    "dow_cos",
+    "session_london",
+    "session_ny",
+    "spread_rel"
+  ],
+  "rounds": {
+    "long_lgb_s42": 18,
+    "long_xgb_s42": 2,
+    "long_lgb_s1337": 5,
+    "long_xgb_s1337": 25,
+    "long_lgb_s2024": 9,
+    "long_xgb_s2024": 1,
+    "short_lgb_s42": 12,
+    "short_xgb_s42": 600,
+    "short_lgb_s1337": 12,
+    "short_xgb_s1337": 72,
+    "short_lgb_s2024": 1,
+    "short_xgb_s2024": 600
+  },
+  "members": {
+    "long": [
+      {
+        "kind": "lgb",
+        "seed": 42,
+        "file": "long_lgb_s42_latest.txt",
+        "rounds": 18,
+        "weight": 0.13755982455386428,
+        "auc_val": 0.5130879782804025
+      },
+      {
+        "kind": "xgb",
+        "seed": 42,
+        "file": "long_xgb_s42_latest.json",
+        "rounds": 2,
+        "weight": 0.13997184191135678,
+        "auc_val": 0.5133174670202232
+      },
+      {
+        "kind": "lgb",
+        "seed": 1337,
+        "file": "long_lgb_s1337_latest.txt",
+        "rounds": 5,
+        "weight": 0.2545433510545692,
+        "auc_val": 0.5242182473031476
+      },
+      {
+        "kind": "xgb",
+        "seed": 1337,
+        "file": "long_xgb_s1337_latest.json",
+        "rounds": 25,
+        "weight": 0.12038537441049994,
+        "auc_val": 0.5114539341022916
+      },
+      {
+        "kind": "lgb",
+        "seed": 2024,
+        "file": "long_lgb_s2024_latest.txt",
+        "rounds": 9,
+        "weight": 0.1922261887165778,
+        "auc_val": 0.5182891494010448
+      },
+      {
+        "kind": "xgb",
+        "seed": 2024,
+        "file": "long_xgb_s2024_latest.json",
+        "rounds": 1,
+        "weight": 0.155313419353132,
+        "auc_val": 0.5147771245401151
+      }
+    ],
+    "short": [
+      {
+        "kind": "lgb",
+        "seed": 42,
+        "file": "short_lgb_s42_latest.txt",
+        "rounds": 12,
+        "weight": 0.2613794012017006,
+        "auc_val": 0.5212483163989505
+      },
+      {
+        "kind": "xgb",
+        "seed": 42,
+        "file": "short_xgb_s42_latest.json",
+        "rounds": 600,
+        "weight": 0.13436400107628538,
+        "auc_val": 0.5109228531183859
+      },
+      {
+        "kind": "lgb",
+        "seed": 1337,
+        "file": "short_lgb_s1337_latest.txt",
+        "rounds": 12,
+        "weight": 0.23186802626445838,
+        "auc_val": 0.5188492481129585
+      },
+      {
+        "kind": "xgb",
+        "seed": 1337,
+        "file": "short_xgb_s1337_latest.json",
+        "rounds": 72,
+        "weight": 0.0,
+        "auc_val": 0.5098336357126277
+      },
+      {
+        "kind": "lgb",
+        "seed": 2024,
+        "file": "short_lgb_s2024_latest.txt",
+        "rounds": 1,
+        "weight": 0.3723885714575556,
+        "auc_val": 0.5302725851895932
+      },
+      {
+        "kind": "xgb",
+        "seed": 2024,
+        "file": "short_xgb_s2024_latest.json",
+        "rounds": 600,
+        "weight": 0.0,
+        "auc_val": 0.5089839345252591
+      }
+    ]
+  },
+  "tp_atr_mult": 3.0,
+  "sl_atr_mult": 1.1429,
+  "atr_window_m5": 288,
+  "horizon_m1": 360,
+  "cooldown_m1": 10,
+  "point_value": 0.001,
+  "spread_floor_mult": 3.0,
+  "sl_floor_usd": 0.3,
+  "min_m5_bars": 2885,
+  "train_window": "2023-08~2026-07",
+  "oos_performance_reference": "results/summary_v3bal_ens.json (24个月走查真实结果)"
+}

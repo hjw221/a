@@ -1,0 +1,12 @@
+{
+  "n_features": 66,
+  "n_bars": 571229,
+  "causality_violations": [],
+  "nan_ratio_top": {
+    "atr_z": 0.0026,
+    "ret_1440": 0.0025,
+    "rv_1440": 0.0025,
+    "rv_ratio_60_1440": 0.0025,
+    "atr_ratio": 0.0025
+  }
+}

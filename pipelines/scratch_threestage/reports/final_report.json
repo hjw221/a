@@ -1,0 +1,55 @@
+{
+ "config": {
+  "variant": "V3",
+  "label": "pnl_net>0",
+  "gate": "server-hour 8-21",
+  "delta": 0.06,
+  "geometry": "TP=1.0*sig120 SL=0.5*sig120 T=240",
+  "cost_rt": 0.06
+ },
+ "main": {
+  "n": 2729,
+  "win_rate": 0.4137,
+  "plr": 1.494,
+  "pnl": 870.28,
+  "per_trade": 0.3189,
+  "sharpe_d": 0.597,
+  "maxdd": -971.03,
+  "avg_hold_min": 125.2,
+  "long_n": 1806,
+  "long_pnl": 391.27,
+  "short_n": 923,
+  "short_pnl": 479.02
+ },
+ "stress_cost_0.10": {
+  "n": 2729,
+  "win_rate": 0.4133,
+  "plr": 1.487,
+  "pnl": 761.12,
+  "per_trade": 0.2789,
+  "sharpe_d": 0.522,
+  "maxdd": -980.99,
+  "avg_hold_min": 125.2,
+  "long_n": 1806,
+  "long_pnl": 319.03,
+  "short_n": 923,
+  "short_pnl": 442.1
+ },
+ "random_control": {
+  "mean": -347.27,
+  "ci5": -1427.27,
+  "ci95": 662.94
+ },
+ "bootstrap_ci": [
+  -656.76,
+  2370.19
+ ],
+ "profit_months": "14/24",
+ "old_baseline_v3bal_ens": {
+  "n": 1611,
+  "win_rate": 0.316,
+  "plr": 2.57,
+  "pnl": 1113.5,
+  "sharpe": 1.74
+ }
+}

@@ -1,0 +1,49 @@
+{
+ "variants": {
+  "V0_base": {
+   "n": 778,
+   "win_rate": 0.3445,
+   "pnl": -72.4,
+   "per_trade": -0.0931,
+   "sharpe_d": -0.713
+  },
+  "V1_hourgate": {
+   "n": 355,
+   "win_rate": 0.3662,
+   "pnl": 28.85,
+   "per_trade": 0.0813,
+   "sharpe_d": 0.379
+  },
+  "V2_p0delta0.02": {
+   "n": 1543,
+   "win_rate": 0.3675,
+   "pnl": -417.36,
+   "per_trade": -0.2705,
+   "sharpe_d": -2.294
+  },
+  "V2_p0delta0.04": {
+   "n": 1339,
+   "win_rate": 0.3816,
+   "pnl": -219.96,
+   "per_trade": -0.1643,
+   "sharpe_d": -1.234
+  },
+  "V2_p0delta0.06": {
+   "n": 1061,
+   "win_rate": 0.3977,
+   "pnl": -101.7,
+   "per_trade": -0.0959,
+   "sharpe_d": -0.628
+  },
+  "V3_combo": {
+   "n": 682,
+   "win_rate": 0.415,
+   "pnl": 84.28,
+   "per_trade": 0.1236,
+   "sharpe_d": 0.639
+  }
+ },
+ "winner": "V3_combo",
+ "delta_star": 0.06,
+ "inner_test_period": "2024-01~2024-06"
+}

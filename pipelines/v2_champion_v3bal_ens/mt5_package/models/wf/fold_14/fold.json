@@ -1,0 +1,174 @@
+{
+  "fold": 14,
+  "oos_month": "2025-10",
+  "window": "2022-10~2025-09",
+  "train_months": 36,
+  "thr_long": 0.3257205936447844,
+  "thr_short": 0.26625596005571756,
+  "members": [
+    {
+      "direction": "long",
+      "kind": "lgb",
+      "seed": 42,
+      "file": "long_lgb_s42.onnx",
+      "weight": 0.2439703903164596,
+      "rounds": 10,
+      "auc_val": 0.5111372321432015,
+      "native_file": "long_lgb_s42.txt"
+    },
+    {
+      "direction": "long",
+      "kind": "lgb",
+      "seed": 1337,
+      "file": "long_lgb_s1337.onnx",
+      "weight": 0.28255005131817035,
+      "rounds": 12,
+      "auc_val": 0.5128983911101759,
+      "native_file": "long_lgb_s1337.txt"
+    },
+    {
+      "direction": "long",
+      "kind": "lgb",
+      "seed": 2024,
+      "file": "long_lgb_s2024.onnx",
+      "weight": 0.24661562695218456,
+      "rounds": 17,
+      "auc_val": 0.5112579870202485,
+      "native_file": "long_lgb_s2024.txt"
+    },
+    {
+      "direction": "long",
+      "kind": "xgb",
+      "seed": 2024,
+      "file": "long_xgb_s2024.onnx",
+      "weight": 0.22686393141318548,
+      "rounds": 1,
+      "auc_val": 0.5103563234283908,
+      "native_file": "long_xgb_s2024.json"
+    },
+    {
+      "direction": "short",
+      "kind": "lgb",
+      "seed": 42,
+      "file": "short_lgb_s42.onnx",
+      "weight": 0.14252985963600798,
+      "rounds": 27,
+      "auc_val": 0.5221055195300548,
+      "native_file": "short_lgb_s42.txt"
+    },
+    {
+      "direction": "short",
+      "kind": "xgb",
+      "seed": 42,
+      "file": "short_xgb_s42.onnx",
+      "weight": 0.14214809978828685,
+      "rounds": 29,
+      "auc_val": 0.5220463108856968,
+      "native_file": "short_xgb_s42.json"
+    },
+    {
+      "direction": "short",
+      "kind": "lgb",
+      "seed": 1337,
+      "file": "short_lgb_s1337.onnx",
+      "weight": 0.23379279623862234,
+      "rounds": 1,
+      "auc_val": 0.5362598492444831,
+      "native_file": "short_lgb_s1337.txt"
+    },
+    {
+      "direction": "short",
+      "kind": "xgb",
+      "seed": 1337,
+      "file": "short_xgb_s1337.onnx",
+      "weight": 0.15786613864808857,
+      "rounds": 17,
+      "auc_val": 0.5244840836855637,
+      "native_file": "short_xgb_s1337.json"
+    },
+    {
+      "direction": "short",
+      "kind": "lgb",
+      "seed": 2024,
+      "file": "short_lgb_s2024.onnx",
+      "weight": 0.16510179957284002,
+      "rounds": 3,
+      "auc_val": 0.5256062909500163,
+      "native_file": "short_lgb_s2024.txt"
+    },
+    {
+      "direction": "short",
+      "kind": "xgb",
+      "seed": 2024,
+      "file": "short_xgb_s2024.onnx",
+      "weight": 0.15856130611615424,
+      "rounds": 14,
+      "auc_val": 0.5245918999570539,
+      "native_file": "short_xgb_s2024.json"
+    }
+  ],
+  "n_zero_weight_skipped": 2,
+  "self_test": {
+    "bar_time": "2025-10-31 20:55:00",
+    "features": [
+      0.725818395614624,
+      0.44168367981910706,
+      0.8983036279678345,
+      0.8501865267753601,
+      0.10189850628376007,
+      3.8665850162506104,
+      -3.9690394401550293,
+      -4.047223091125488,
+      -0.8647477626800537,
+      0.027936486527323723,
+      0.0729052871465683,
+      0.027612367644906044,
+      -0.05447082594037056,
+      -0.015112337656319141,
+      -8.295835494995117,
+      5.412662982940674,
+      0.39483997225761414,
+      93.0,
+      56.0,
+      -0.10000000149011612,
+      -0.6632665991783142,
+      -1.8693846464157104,
+      -1.1288254261016846,
+      0.5852083563804626,
+      -0.7059563994407654,
+      0.294043630361557,
+      0.0,
+      -0.7223639488220215,
+      0.6915130615234375,
+      -0.4338837265968323,
+      -0.9009688496589661,
+      0.0,
+      1.0,
+      1.0
+    ],
+    "expected_pl": 0.33128,
+    "expected_ps": 0.238538
+  },
+  "verification": {
+    "fold": 14,
+    "oos_month": "2025-10",
+    "max_auc_diff": 0.0,
+    "max_weight_diff": 0.0,
+    "thr_recompute_diff": [
+      0.0,
+      0.0
+    ],
+    "trades_re": 132,
+    "trades_ck": 132,
+    "log_cols_eq": {
+      "dir": true,
+      "outcome": true,
+      "pnl": true,
+      "prob": true,
+      "entry_time": true,
+      "exit_time": true
+    },
+    "trades_match": true,
+    "pass": true
+  }
+}

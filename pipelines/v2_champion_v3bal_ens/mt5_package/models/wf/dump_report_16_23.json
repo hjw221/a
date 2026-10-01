@@ -1,0 +1,58 @@
+[
+  {
+    "fold": 16,
+    "oos_month": "2025-12",
+    "pass": true,
+    "trades": 79,
+    "trades_ck": 79
+  },
+  {
+    "fold": 17,
+    "oos_month": "2026-01",
+    "pass": true,
+    "trades": 53,
+    "trades_ck": 53
+  },
+  {
+    "fold": 18,
+    "oos_month": "2026-02",
+    "pass": true,
+    "trades": 47,
+    "trades_ck": 47
+  },
+  {
+    "fold": 19,
+    "oos_month": "2026-03",
+    "pass": true,
+    "trades": 119,
+    "trades_ck": 119
+  },
+  {
+    "fold": 20,
+    "oos_month": "2026-04",
+    "pass": true,
+    "trades": 79,
+    "trades_ck": 79
+  },
+  {
+    "fold": 21,
+    "oos_month": "2026-05",
+    "pass": true,
+    "trades": 150,
+    "trades_ck": 150
+  },
+  {
+    "fold": 22,
+    "oos_month": "2026-06",
+    "pass": true,
+    "trades": 153,
+    "trades_ck": 153
+  },
+  {
+    "fold": 23,
+    "oos_month": "2026-07",
+    "pass": true,
+    "trades": 32,
+    "trades_ck": 32
+  }
+]
