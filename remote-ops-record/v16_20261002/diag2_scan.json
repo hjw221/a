@@ -1,0 +1,439 @@
+{
+ "scan": {
+  "rnd@0.1": {
+   "rate": 0.1,
+   "mean": 28700.8,
+   "std": 429.6,
+   "fills_mean": 11036.0,
+   "per_trade": 2.601,
+   "seeds": [
+    {
+     "seed": 2000,
+     "total": 28471.9,
+     "fills": 10999
+    },
+    {
+     "seed": 2001,
+     "total": 28944.9,
+     "fills": 11018
+    },
+    {
+     "seed": 2002,
+     "total": 28411.6,
+     "fills": 11069
+    },
+    {
+     "seed": 2003,
+     "total": 29425.0,
+     "fills": 11063
+    },
+    {
+     "seed": 2004,
+     "total": 28250.7,
+     "fills": 11031
+    }
+   ]
+  },
+  "rnd_dir@0.1": {
+   "rate": 0.1,
+   "mean": 27803.6,
+   "std": 1057.2,
+   "fills_mean": 11034.0,
+   "per_trade": 2.52,
+   "seeds": [
+    {
+     "seed": 2000,
+     "total": 27636.2,
+     "fills": 11010
+    },
+    {
+     "seed": 2001,
+     "total": 27605.2,
+     "fills": 11062
+    },
+    {
+     "seed": 2002,
+     "total": 27698.8,
+     "fills": 10957
+    },
+    {
+     "seed": 2003,
+     "total": 26396.0,
+     "fills": 11058
+    },
+    {
+     "seed": 2004,
+     "total": 29682.0,
+     "fills": 11085
+    }
+   ]
+  },
+  "rnd@0.2": {
+   "rate": 0.2,
+   "mean": 48860.9,
+   "std": 475.7,
+   "fills_mean": 17810.0,
+   "per_trade": 2.744,
+   "seeds": [
+    {
+     "seed": 2000,
+     "total": 49195.1,
+     "fills": 17961
+    },
+    {
+     "seed": 2001,
+     "total": 47994.4,
+     "fills": 17605
+    },
+    {
+     "seed": 2002,
+     "total": 49030.7,
+     "fills": 17851
+    },
+    {
+     "seed": 2003,
+     "total": 49337.3,
+     "fills": 17813
+    },
+    {
+     "seed": 2004,
+     "total": 48746.8,
+     "fills": 17818
+    }
+   ]
+  },
+  "rnd_dir@0.2": {
+   "rate": 0.2,
+   "mean": 47068.2,
+   "std": 759.1,
+   "fills_mean": 17759.0,
+   "per_trade": 2.65,
+   "seeds": [
+    {
+     "seed": 2000,
+     "total": 47928.2,
+     "fills": 17811
+    },
+    {
+     "seed": 2001,
+     "total": 46233.5,
+     "fills": 17748
+    },
+    {
+     "seed": 2002,
+     "total": 46090.7,
+     "fills": 17638
+    },
+    {
+     "seed": 2003,
+     "total": 47410.2,
+     "fills": 17798
+    },
+    {
+     "seed": 2004,
+     "total": 47678.4,
+     "fills": 17798
+    }
+   ]
+  },
+  "rnd@0.35": {
+   "rate": 0.35,
+   "mean": 70478.9,
+   "std": 1192.8,
+   "fills_mean": 24536.0,
+   "per_trade": 2.872,
+   "seeds": [
+    {
+     "seed": 2000,
+     "total": 71165.5,
+     "fills": 24477
+    },
+    {
+     "seed": 2001,
+     "total": 69991.3,
+     "fills": 24469
+    },
+    {
+     "seed": 2002,
+     "total": 68599.4,
+     "fills": 24580
+    },
+    {
+     "seed": 2003,
+     "total": 70464.8,
+     "fills": 24631
+    },
+    {
+     "seed": 2004,
+     "total": 72173.6,
+     "fills": 24525
+    }
+   ]
+  },
+  "rnd_dir@0.35": {
+   "rate": 0.35,
+   "mean": 67818.3,
+   "std": 351.3,
+   "fills_mean": 24444.0,
+   "per_trade": 2.774,
+   "seeds": [
+    {
+     "seed": 2000,
+     "total": 67777.8,
+     "fills": 24297
+    },
+    {
+     "seed": 2001,
+     "total": 68471.6,
+     "fills": 24613
+    },
+    {
+     "seed": 2002,
+     "total": 67681.0,
+     "fills": 24472
+    },
+    {
+     "seed": 2003,
+     "total": 67749.1,
+     "fills": 24445
+    },
+    {
+     "seed": 2004,
+     "total": 67412.1,
+     "fills": 24395
+    }
+   ]
+  },
+  "rnd@0.5": {
+   "rate": 0.5,
+   "mean": 87309.0,
+   "std": 1161.8,
+   "fills_mean": 29374.0,
+   "per_trade": 2.972,
+   "seeds": [
+    {
+     "seed": 2000,
+     "total": 87690.4,
+     "fills": 29319
+    },
+    {
+     "seed": 2001,
+     "total": 88569.9,
+     "fills": 29330
+    },
+    {
+     "seed": 2002,
+     "total": 85180.8,
+     "fills": 29496
+    },
+    {
+     "seed": 2003,
+     "total": 87123.6,
+     "fills": 29367
+    },
+    {
+     "seed": 2004,
+     "total": 87980.1,
+     "fills": 29357
+    }
+   ]
+  },
+  "rnd_dir@0.5": {
+   "rate": 0.5,
+   "mean": 83195.6,
+   "std": 822.3,
+   "fills_mean": 29116.0,
+   "per_trade": 2.857,
+   "seeds": [
+    {
+     "seed": 2000,
+     "total": 82512.9,
+     "fills": 29159
+    },
+    {
+     "seed": 2001,
+     "total": 84158.8,
+     "fills": 29022
+    },
+    {
+     "seed": 2002,
+     "total": 83727.8,
+     "fills": 29057
+    },
+    {
+     "seed": 2003,
+     "total": 83618.1,
+     "fills": 29205
+    },
+    {
+     "seed": 2004,
+     "total": 81960.4,
+     "fills": 29137
+    }
+   ]
+  },
+  "rnd@0.7": {
+   "rate": 0.7,
+   "mean": 105078.1,
+   "std": 517.4,
+   "fills_mean": 33841.0,
+   "per_trade": 3.105,
+   "seeds": [
+    {
+     "seed": 2000,
+     "total": 104968.0,
+     "fills": 33825
+    },
+    {
+     "seed": 2001,
+     "total": 105486.3,
+     "fills": 33770
+    },
+    {
+     "seed": 2002,
+     "total": 104166.4,
+     "fills": 33923
+    },
+    {
+     "seed": 2003,
+     "total": 105120.0,
+     "fills": 33788
+    },
+    {
+     "seed": 2004,
+     "total": 105650.0,
+     "fills": 33899
+    }
+   ]
+  },
+  "rnd_dir@0.7": {
+   "rate": 0.7,
+   "mean": 100754.1,
+   "std": 730.4,
+   "fills_mean": 33622.0,
+   "per_trade": 2.997,
+   "seeds": [
+    {
+     "seed": 2000,
+     "total": 101070.3,
+     "fills": 33722
+    },
+    {
+     "seed": 2001,
+     "total": 100949.7,
+     "fills": 33510
+    },
+    {
+     "seed": 2002,
+     "total": 99438.4,
+     "fills": 33670
+    },
+    {
+     "seed": 2003,
+     "total": 101643.4,
+     "fills": 33546
+    },
+    {
+     "seed": 2004,
+     "total": 100668.6,
+     "fills": 33661
+    }
+   ]
+  },
+  "rnd@1.0": {
+   "rate": 1.0,
+   "mean": 123902.4,
+   "std": 1099.3,
+   "fills_mean": 38804.0,
+   "per_trade": 3.193,
+   "seeds": [
+    {
+     "seed": 2000,
+     "total": 125472.8,
+     "fills": 38833
+    },
+    {
+     "seed": 2001,
+     "total": 123340.6,
+     "fills": 38690
+    },
+    {
+     "seed": 2002,
+     "total": 123411.1,
+     "fills": 38864
+    },
+    {
+     "seed": 2003,
+     "total": 124844.8,
+     "fills": 38807
+    },
+    {
+     "seed": 2004,
+     "total": 122442.6,
+     "fills": 38824
+    }
+   ]
+  },
+  "rnd_dir@1.0": {
+   "rate": 1.0,
+   "mean": 119828.4,
+   "std": 0.0,
+   "fills_mean": 38469.0,
+   "per_trade": 3.115,
+   "seeds": [
+    {
+     "seed": 2000,
+     "total": 119828.4,
+     "fills": 38469
+    },
+    {
+     "seed": 2001,
+     "total": 119828.4,
+     "fills": 38469
+    },
+    {
+     "seed": 2002,
+     "total": 119828.4,
+     "fills": 38469
+    },
+    {
+     "seed": 2003,
+     "total": 119828.4,
+     "fills": 38469
+    },
+    {
+     "seed": 2004,
+     "total": 119828.4,
+     "fills": 38469
+    }
+   ]
+  }
+ },
+ "n_verdict": {
+  "model_ref": 20078.5,
+  "model_fills": 4862,
+  "rnd_at_4862_interp": 28700.8,
+  "rnd_dir_at_4862_interp": 27803.6,
+  "conclusion": "\u968f\u673a\u6d41\u5728\u540c\u7b14\u65704862\u5904\u63d2\u503c\u4ecd\u9ad8\u4e8emodel",
+  "note": "\u7ebf\u6027\u63d2\u503c; rnd_dir=model\u65b9\u5411\u968f\u673a\u65f6\u523b\u8868"
+ },
+ "meta": {
+  "rates": [
+   0.1,
+   0.2,
+   0.35,
+   0.5,
+   0.7,
+   1.0
+  ],
+  "seeds": [
+   2000,
+   2001,
+   2002,
+   2003,
+   2004
+  ],
+  "engine": "chandelier3.0ATR serial",
+  "generated": "2026-10-02 04:39:05"
+ }
+}

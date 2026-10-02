@@ -1,0 +1,164 @@
+{
+ "arms": {
+  "base": {
+   "total": 72287.0,
+   "trades": 16230,
+   "avg_per_trade": 4.454,
+   "by_year": {
+    "2022": 3818.6,
+    "2023": 9996.5,
+    "2024": 10286.6,
+    "2025": 19721.6,
+    "2026": 28463.8
+   },
+   "share2026_pct": 39.4,
+   "maxDD": 0.0,
+   "sharpe_m": 3.66,
+   "long_pnl": 31516.9,
+   "short_pnl": 40770.2
+  },
+  "sqz_rule": {
+   "total": 22825.4,
+   "trades": 4757,
+   "avg_per_trade": 4.798,
+   "by_year": {
+    "2022": 901.0,
+    "2023": 3056.7,
+    "2024": 3993.1,
+    "2025": 5421.0,
+    "2026": 9453.6
+   },
+   "share2026_pct": 41.4,
+   "maxDD": 0.0,
+   "sharpe_m": 3.5,
+   "long_pnl": 9258.4,
+   "short_pnl": 13567.0
+  },
+  "atr_rule": {
+   "total": 34042.9,
+   "trades": 6248,
+   "avg_per_trade": 5.449,
+   "by_year": {
+    "2022": 1695.2,
+    "2023": 5024.1,
+    "2024": 5077.5,
+    "2025": 8950.0,
+    "2026": 13296.1
+   },
+   "share2026_pct": 39.1,
+   "maxDD": 0.0,
+   "sharpe_m": 2.84,
+   "long_pnl": 11417.3,
+   "short_pnl": 22625.5
+  },
+  "ml_mfe": {
+   "total": 72287.0,
+   "trades": 16230,
+   "avg_per_trade": 4.454,
+   "by_year": {
+    "2022": 3818.6,
+    "2023": 9996.5,
+    "2024": 10286.6,
+    "2025": 19721.6,
+    "2026": 28463.8
+   },
+   "share2026_pct": 39.4,
+   "maxDD": 0.0,
+   "sharpe_m": 3.66,
+   "long_pnl": 31516.9,
+   "short_pnl": 40770.2
+  },
+  "ml_mfe60": {
+   "total": 72287.0,
+   "trades": 16230,
+   "avg_per_trade": 4.454,
+   "by_year": {
+    "2022": 3818.6,
+    "2023": 9996.5,
+    "2024": 10286.6,
+    "2025": 19721.6,
+    "2026": 28463.8
+   },
+   "share2026_pct": 39.4,
+   "maxDD": 0.0,
+   "sharpe_m": 3.66,
+   "long_pnl": 31516.9,
+   "short_pnl": 40770.2
+  },
+  "ml_er": {
+   "total": 0.0,
+   "trades": 0,
+   "avg_per_trade": 0.0,
+   "by_year": {},
+   "share2026_pct": 0.0,
+   "maxDD": NaN,
+   "sharpe_m": null,
+   "long_pnl": 0.0,
+   "short_pnl": 0.0
+  },
+  "ml_rv": {
+   "total": 11418.7,
+   "trades": 2388,
+   "avg_per_trade": 4.782,
+   "by_year": {
+    "2022": 403.2,
+    "2023": 3477.5,
+    "2024": 1454.8,
+    "2025": 2465.2,
+    "2026": 3618.1
+   },
+   "share2026_pct": 31.7,
+   "maxDD": -9.9,
+   "sharpe_m": 4.05,
+   "long_pnl": 5548.5,
+   "short_pnl": 5870.2
+  },
+  "slip2": {
+   "total": 70592.1,
+   "trades": 16230,
+   "avg_per_trade": 4.349,
+   "by_year": {
+    "2022": 3818.6,
+    "2023": 9996.5,
+    "2024": 9768.9,
+    "2025": 19084.6,
+    "2026": 27923.5
+   },
+   "share2026_pct": 39.6,
+   "maxDD": 0.0,
+   "sharpe_m": 3.62,
+   "long_pnl": 0.0,
+   "short_pnl": 0.0
+  },
+  "slip3": {
+   "total": 68897.1,
+   "trades": 16230,
+   "avg_per_trade": 4.245,
+   "by_year": {
+    "2022": 3818.6,
+    "2023": 9996.5,
+    "2024": 9251.2,
+    "2025": 18447.6,
+    "2026": 27383.2
+   },
+   "share2026_pct": 39.7,
+   "maxDD": 0.0,
+   "sharpe_m": 3.58,
+   "long_pnl": 0.0,
+   "short_pnl": 0.0
+  }
+ },
+ "labels": {
+  "sig_bars": 40561,
+  "mfe_gt1_rate": 0.865,
+  "er_gt04_rate": 0.176,
+  "auc_mfe": 0.578,
+  "auc_er": 0.505
+ },
+ "meta": {
+  "signal": "keltner(EMA20\u00b12ATR14) breakout",
+  "engine": "chandelier3.0ATR serial hold90",
+  "folds": 48,
+  "generated": "2026-10-02 04:39:50"
+ }
+}

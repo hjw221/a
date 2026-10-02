@@ -1,0 +1,214 @@
+{
+ "phase1_model": {
+  "n": 11860,
+  "total": 29719.0,
+  "avg": 2.506,
+  "by_year": {
+   "2022": 2251.1,
+   "2023": 4384.7,
+   "2024": 4527.5,
+   "2025": 9600.6,
+   "2026": 8955.1
+  },
+  "n_sig": 23497,
+  "fills": 11860,
+  "fill_rate": 0.505,
+  "gap_med_m5": 2,
+  "gap_p90_m5": 42
+ },
+ "phase2_unmatched": {
+  "rnd": {
+   "total": 38971.4,
+   "fills": 15047,
+   "n": 15046,
+   "avg": 2.59,
+   "by_year": {
+    "2022": 2319.1,
+    "2023": 5409.4,
+    "2024": 6281.3,
+    "2025": 11917.4,
+    "2026": 13044.2
+   }
+  },
+  "rnd_dir": {
+   "total": 40192.7,
+   "fills": 15135,
+   "n": 15135,
+   "avg": 2.656,
+   "by_year": {
+    "2022": 2312.1,
+    "2023": 5488.4,
+    "2024": 6180.5,
+    "2025": 12495.9,
+    "2026": 13715.9
+   }
+  },
+  "mdl_rdir": {
+   "total": 31379.8,
+   "fills": 11703,
+   "n": 11703,
+   "avg": 2.681,
+   "by_year": {
+    "2022": 2270.9,
+    "2023": 4297.2,
+    "2024": 4955.7,
+    "2025": 9279.1,
+    "2026": 10576.8
+   }
+  },
+  "sanity": {
+   "ctrl2_random_ref": 30051.5,
+   "ctrl2_fills_ref": 8517,
+   "rnd_dev_pct": 29.682,
+   "rnd_fills_dev": 6530
+  }
+ },
+ "phase3_matched": {
+  "rnd": {
+   "mean": 23220.2,
+   "std": 795.9,
+   "p5": 22063.7,
+   "p95": 24302.7,
+   "fills_mean": 9194.0,
+   "beats_model": 0.0
+  },
+  "rnd_dir": {
+   "mean": 22393.1,
+   "std": 686.7,
+   "p5": 21423.3,
+   "p95": 23162.6,
+   "fills_mean": 9157.0,
+   "beats_model": 0.0
+  },
+  "mdl_rdir": {
+   "mean": 31780.4,
+   "std": 683.5,
+   "p5": 30830.2,
+   "p95": 32838.5,
+   "fills_mean": 11657.0,
+   "beats_model": 1.0
+  }
+ },
+ "phase4_entry_quality": {
+  "model": {
+   "label": "model",
+   "n": 11860,
+   "mfe_med": 4.11,
+   "mae_med": 4.06,
+   "mfe_over_mae": 1.01,
+   "dir_hit90": 0.506,
+   "chase_edge_med": 0.321,
+   "chase_pct_gt80": 0.095,
+   "long": {
+    "n": 5981,
+    "pnl": 15315.3,
+    "dir_hit": 0.528,
+    "chase_med": 0.286
+   },
+   "short": {
+    "n": 5879,
+    "pnl": 14403.7,
+    "dir_hit": 0.484,
+    "chase_med": 0.362
+   }
+  },
+  "rnd": {
+   "label": "rnd@777",
+   "n": 15046,
+   "mfe_med": 3.95,
+   "mae_med": 3.96,
+   "mfe_over_mae": 1.0,
+   "dir_hit90": 0.497,
+   "chase_edge_med": 0.499,
+   "chase_pct_gt80": 0.204,
+   "long": {
+    "n": 7489,
+    "pnl": 18527.3,
+    "dir_hit": 0.516,
+    "chase_med": 0.51
+   },
+   "short": {
+    "n": 7557,
+    "pnl": 20444.1,
+    "dir_hit": 0.478,
+    "chase_med": 0.488
+   }
+  },
+  "rnd_dir": {
+   "label": "rnd_dir@777",
+   "n": 15133,
+   "mfe_med": 3.99,
+   "mae_med": 3.92,
+   "mfe_over_mae": 1.02,
+   "dir_hit90": 0.507,
+   "chase_edge_med": 0.418,
+   "chase_pct_gt80": 0.15,
+   "long": {
+    "n": 7629,
+    "pnl": 19108.8,
+    "dir_hit": 0.522,
+    "chase_med": 0.44
+   },
+   "short": {
+    "n": 7504,
+    "pnl": 21060.2,
+    "dir_hit": 0.492,
+    "chase_med": 0.398
+   }
+  },
+  "mdl_rdir": {
+   "label": "mdl_rdir@777",
+   "n": 11703,
+   "mfe_med": 4.11,
+   "mae_med": 4.03,
+   "mfe_over_mae": 1.02,
+   "dir_hit90": 0.499,
+   "chase_edge_med": 0.504,
+   "chase_pct_gt80": 0.224,
+   "long": {
+    "n": 5797,
+    "pnl": 14285.9,
+    "dir_hit": 0.521,
+    "chase_med": 0.475
+   },
+   "short": {
+    "n": 5906,
+    "pnl": 17093.9,
+    "dir_hit": 0.476,
+    "chase_med": 0.528
+   }
+  }
+ },
+ "verdict": {
+  "b2_n_effect": {
+   "model": 29719.0,
+   "rnd_matched_mean": 23220.2,
+   "rnd_beats_model_rate": 0.0,
+   "conclusion": "N\u914d\u5e73\u540e\u6a21\u578b\u53cd\u8d85(\u7b14\u6570\u662f\u4e3b\u56e0)"
+  },
+  "dir_alpha": {
+   "rnd": 23220.2,
+   "rnd_dir": 22393.1,
+   "model_dir_delta": -827.1,
+   "conclusion": "model\u65b9\u5411\u4e3a\u8d1f\u8d21\u732e"
+  },
+  "timing_alpha": {
+   "rnd": 23220.2,
+   "mdl_rdir": 31780.4,
+   "model_timing_delta": 8560.2,
+   "conclusion": "model\u65f6\u523b\u4e3a\u6b63\u8d21\u732e"
+  },
+  "b3_chase": {
+   "model_chase_pct": 0.095,
+   "rnd_chase_pct": 0.204,
+   "model_dir_hit": 0.506,
+   "rnd_dir_hit": 0.497
+  }
+ },
+ "meta": {
+  "folds": 48,
+  "seeds": 20,
+  "engine": "chandelier3.0ATR serial",
+  "generated": "2026-10-02 04:38:05"
+ }
+}
