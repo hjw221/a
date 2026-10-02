@@ -413,3 +413,20 @@ Stage Summary:
 - 种子稳健(3种子PnL −13.6k~−14.2k); λ0.999 IC最优; n_res1000无增益
 - 下一步: P0事件驱动调仓(换手再砍70%) / P1能量头×v17规则引擎融合(IC0.34波动率预测做HTF突破在线闸门) / 双头双视界部署 / 阶段二ZeroMQ桥→阶段三DLL
 - 分支: reservoir-engine 已建(本次提交推送), 用户可独立于 main/server 演进该路线
+
+---
+Task ID: 34-addendum
+Agent: main (Z.ai Code)
+Task: R1 分支推送收尾 + git 大文件事故处理
+
+Work Log:
+- 推送事故: 首推被拒 research-lab/data.csv 100.93MB (GitHub 100MB 硬限)
+- 第一次修复失败教训×2: ① filter-branch 只重写了 a3d5a4b^..HEAD, 大文件 blob 在更深的 c212465/6ecbc87 祖先里仍在; ② `A && B && C; D` 链在 merge-base 非零处断裂导致"data.csv已清除"检查根本没执行(和 worklog 坑位第2条同型——坑位集要加星号)
+- 最终方案(贴合用户"从头再来"语义): 孤儿分支单提交快照 — 全部研究成果(三tab前端+引擎+归档+worklog)打成 be9b4f5 一个干净提交, 581 个对象全 <100MB, 推送成功
+- .gitignore 新增: research-lab/data.csv / skills/ / upload/ / tool-results/ / .zscripts/ / dev.log; 原始 M1 csv 备份在 /home/z/data-backup/XAUUSDc_M1.csv (md5 f6b0d44d, 服务器原件同在)
+- 本地 main 仍为重写后的杂历史(未再推送); origin/main 保持上次会话的纯归档态 b85e6aa 不动 — 分仓哲学: main=纯归档, server=旧研究, reservoir-engine=新路线
+- stash/refs-original 清理完毕; ntfy 通知已发
+
+Stage Summary:
+- GitHub 新分支 reservoir-engine = be9b4f5 (孤儿快照, 无历史包袱, 无大文件) — 用户"新建一个github分支从头再来"指令完成
+- 待办转移: 本地 main 与 origin/main(b85e6aa) 分叉的最终处置(重置本地 or 保留)留给用户决定
