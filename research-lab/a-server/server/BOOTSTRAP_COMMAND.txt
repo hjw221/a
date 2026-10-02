@@ -1,0 +1,2 @@
+# 在 Termux SSH 登录服务器后, 粘贴这一条命令启动全部流程:
+f=/tmp/b.sh; (curl -fsSL https://raw.githubusercontent.com/hjw221/a/server/server/bootstrap.sh || curl -fsSL https://ghfast.top/https://raw.githubusercontent.com/hjw221/a/server/server/bootstrap.sh) > $f && bash $f

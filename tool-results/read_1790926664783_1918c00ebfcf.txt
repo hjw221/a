@@ -1,0 +1,501 @@
+     1→'use client'
+     2→
+     3→import { useEffect, useMemo, useState } from 'react'
+     4→import { motion } from 'framer-motion'
+     5→import { Badge } from '@/components/ui/badge'
+     6→import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+     7→import { ScrollArea } from '@/components/ui/scroll-area'
+     8→import { Separator } from '@/components/ui/separator'
+     9→import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+    10→import {
+    11→  AlertTriangle, CheckCircle2, Crosshair, FlaskConical, Gauge, Layers,
+    12→  LineChart, ShieldCheck, Timer, TrendingUp, XCircle,
+    13→} from 'lucide-react'
+    14→
+    15→/* ================= types ================= */
+    16→interface Summary {
+    17→  total: number; trades: number; avg: number; std: number; t_stat: number
+    18→  win_rate: number; p10: number; p90: number; worst: number; best: number
+    19→  by_year: Record<string, number>; n_by_year: Record<string, number>
+    20→  share2026: number; sharpe: number; maxdd: number
+    21→  med_cost: number; med_atr: number; total54: number
+    22→  months: Record<string, number>
+    23→}
+    24→interface Trade {
+    25→  entry_time: string; exit_time: string; side: 'L' | 'S'
+    26→  entry_px: number; exit_px: number; cost: number; pnl: number
+    27→  hold_bars: number; reason: string; atr_entry: number
+    28→}
+    29→interface Runner { spec: Record<string, string | number>; base: Summary; pess03: Summary; pess05: Summary }
+    30→interface Champ extends Runner { trades: Trade[] }
+    31→interface Finalist {
+    32→  tf: string; entry: string; dir: string; gate: string; exit: string
+    33→  total: number; n: number; avg: number; sh26: number; dd: number
+    34→  wr: number; plr: number; by: Record<string, number>
+    35→  ladder: boolean; plateau: number | null
+    36→}
+    37→interface V17Data {
+    38→  meta: {
+    39→    generated: string; window: string; engine: string; cost_note: string
+    40→    tf_stats: Record<string, { bars: number; atr_med: number; atr_p90: number }> & { spread_rt_med: number }
+    41→  }
+    42→  champion: Champ
+    43→  runners: Runner[]
+    44→  ablation: Record<string, Omit<Summary, 'months' | 'total54'>>
+    45→  finalists: Finalist[]
+    46→  benchmarks: Record<string, { total?: number; trades?: number; avg?: number; note: string }>
+    47→  v17_initial: { note: string; chandelier_verdict: string }
+    48→}
+    49→
+    50→/* ================= helpers ================= */
+    51→const fmtUSD = (v: number, digits = 0) =>
+    52→  `${v < 0 ? '−' : ''}$${Math.abs(v).toLocaleString('en-US', { maximumFractionDigits: digits, minimumFractionDigits: digits })}`
+    53→const pct = (v: number) => `${v.toFixed(1)}%`
+    54→const DIR_LABEL: Record<string, string> = { long: '只做多', short: '只做空', both: '多空双向' }
+    55→const GATE_LABEL: Record<string, string> = { none: '无闸门', atrmed: 'ATR>季度中位', atrp30: 'ATR>季度p30' }
+    56→const ENTRY_LABEL: Record<string, string> = {
+    57→  don20s: 'Donchian-20 停损单', don40s: 'Donchian-40 停损单', don55s: 'Donchian-55 停损单',
+    58→  don20: 'Donchian-20 收盘', don40: 'Donchian-40 收盘', don55: 'Donchian-55 收盘',
+    59→  'kelt20_2.0': 'Keltner 2.0×ATR', 'kelt20_2.5': 'Keltner 2.5×ATR',
+    60→}
+    61→const EXIT_LABEL: Record<string, string> = {
+    62→  t1d: '持1日', t2d: '持2日', t3d: '持3日', t5d: '持5日', t8d: '持8日', t13d: '持13日',
+    63→  tur10: '海龟10反破', tur20: '海龟20反破',
+    64→  t5d_ch8: '持5日+8ATR灾难停', t13d_ch8: '持13日+8ATR灾难停',
+    65→}
+    66→const YEARS = ['2022', '2023', '2024', '2025', '2026']
+    67→const rise = (i: number) => ({ initial: { opacity: 0, y: 14 }, animate: { opacity: 1, y: 0 }, transition: { delay: 0.05 * i, duration: 0.4 } })
+    68→
+    69→/* ================= sub components ================= */
+    70→function KpiCard({ icon, label, value, sub, tone = 'default' }: {
+    71→  icon: React.ReactNode; label: string; value: string; sub?: string
+    72→  tone?: 'default' | 'pos' | 'warn'
+    73→}) {
+    74→  const toneCls = tone === 'pos' ? 'text-emerald-400' : tone === 'warn' ? 'text-amber-400' : 'text-zinc-100'
+    75→  return (
+    76→    <motion.div {...rise(0)}>
+    77→      <Card className="border-zinc-800 bg-zinc-900/60">
+    78→        <CardContent className="p-4">
+    79→          <div className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-wider text-zinc-500">
+    80→            {icon}{label}
+    81→          </div>
+    82→          <div className={`mt-2 font-mono text-2xl font-semibold tabular-nums ${toneCls}`}>{value}</div>
+    83→          {sub && <div className="mt-1 text-xs text-zinc-500">{sub}</div>}
+    84→        </CardContent>
+    85→      </Card>
+    86→    </motion.div>
+    87→  )
+    88→}
+    89→
+    90→function YearBars({ by, n }: { by: Record<string, number>; n?: Record<string, number> }) {
+    91→  const maxAbs = Math.max(...YEARS.map((y) => Math.abs(by[y] ?? 0)), 1)
+    92→  return (
+    93→    <div className="grid grid-cols-5 gap-2 sm:gap-3" role="img" aria-label="年度盈亏">
+    94→      {YEARS.map((y) => {
+    95→        const v = by[y] ?? 0
+    96→        const h = Math.max((Math.abs(v) / maxAbs) * 100, 2)
+    97→        return (
+    98→          <div key={y} className="flex flex-col items-center gap-1.5">
+    99→            <span className={`font-mono text-xs font-semibold tabular-nums ${v >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+   100→              {fmtUSD(v)}
+   101→            </span>
+   102→            <div className="flex h-24 w-full items-end justify-center rounded bg-zinc-900/60">
+   103→              <div
+   104→                className={`w-3/5 rounded-sm ${v >= 0 ? 'bg-emerald-500/80' : 'bg-rose-500/80'} sm:w-1/2`}
+   105→                style={{ height: `${h}%` }}
+   106→              />
+   107→            </div>
+   108→            <span className="text-[11px] text-zinc-500">{y}{n?.[y] ? ` · ${n[y]}笔` : ''}</span>
+   109→          </div>
+   110→        )
+   111→      })}
+   112→    </div>
+   113→  )
+   114→}
+   115→
+   116→function EquityChart({ months }: { months: Record<string, number> }) {
+   117→  const pts = useMemo(() => {
+   118→    const keys = Object.keys(months).sort()
+   119→    return keys.reduce<{ k: string; v: number }[]>((acc, k) => {
+   120→      const prev = acc.length > 0 ? acc[acc.length - 1].v : 0
+   121→      acc.push({ k, v: prev + months[k] })
+   122→      return acc
+   123→    }, [])
+   124→  }, [months])
+   125→  if (pts.length < 2) return null
+   126→  const W = 860, H = 200, PAD = 8
+   127→  const vals = pts.map((p) => p.v)
+   128→  const min = Math.min(...vals, 0), max = Math.max(...vals)
+   129→  const x = (i: number) => PAD + (i / (pts.length - 1)) * (W - 2 * PAD)
+   130→  const y = (v: number) => H - PAD - ((v - min) / (max - min || 1)) * (H - 2 * PAD)
+   131→  const line = pts.map((p, i) => `${x(i).toFixed(1)},${y(p.v).toFixed(1)}`).join(' ')
+   132→  const area = `${PAD},${H - PAD} ${line} ${W - PAD},${H - PAD}`
+   133→  const yearMarks = [2023, 2024, 2025, 2026].map((yr) => {
+   134→    const i = pts.findIndex((p) => p.k.startsWith(String(yr)))
+   135→    return i >= 0 ? { i, yr } : null
+   136→  }).filter(Boolean)
+   137→  return (
+   138→    <div className="w-full">
+   139→      <svg viewBox={`0 0 ${W} ${H}`} className="h-44 w-full sm:h-52" role="img" aria-label="月度累计盈亏曲线" preserveAspectRatio="none">
+   140→        <polygon points={area} fill="rgb(16 185 129 / 0.12)" />
+   141→        <line x1={PAD} x2={W - PAD} y1={y(0)} y2={y(0)} stroke="rgb(113 113 122 / 0.4)" strokeDasharray="3 4" strokeWidth="1" />
+   142→        <polyline points={line} fill="none" stroke="rgb(52 211 153)" strokeWidth="2" strokeLinejoin="round" />
+   143→        {yearMarks.map((m) => (
+   144→          <line key={m!.yr} x1={x(m!.i)} x2={x(m!.i)} y1={PAD} y2={H - PAD} stroke="rgb(113 113 122 / 0.35)" strokeWidth="1" strokeDasharray="2 4" />
+   145→        ))}
+   146→      </svg>
+   147→      <div className="mt-1 flex justify-between text-[10px] text-zinc-600">
+   148→        {yearMarks.map((m) => <span key={m!.yr}>{m!.yr}</span>)}
+   149→        <span>终值 {fmtUSD(vals[vals.length - 1])}</span>
+   150→      </div>
+   151→    </div>
+   152→  )
+   153→}
+   154→
+   155→function LadderRow({ name, s, note }: { name: string; s: Summary; note: string }) {
+   156→  const allPos = YEARS.every((y) => (s.by_year[y] ?? 0) > 0)
+   157→  return (
+   158→    <div className="grid grid-cols-[5.5rem_1fr] items-center gap-3 rounded-lg border border-zinc-800 bg-zinc-900/40 p-3 sm:grid-cols-[5.5rem_1fr_auto]">
+   159→      <div>
+   160→        <div className="font-mono text-sm font-semibold">{name}</div>
+   161→        <div className="text-[10px] text-zinc-500">{note}</div>
+   162→      </div>
+   163→      <div className="flex items-baseline gap-2">
+   164→        <span className={`font-mono text-lg font-semibold tabular-nums ${allPos ? 'text-emerald-400' : 'text-amber-400'}`}>
+   165→          {fmtUSD(s.total)}
+   166→        </span>
+   167→        <span className="text-xs text-zinc-500">笔均 {fmtUSD(s.avg, 2)}</span>
+   168→        <div className="ml-auto hidden gap-1 sm:flex">
+   169→          {YEARS.map((y) => (
+   170→            <span key={y} className={`rounded px-1.5 py-0.5 font-mono text-[10px] tabular-nums ${
+   171→              (s.by_year[y] ?? 0) >= 0 ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'}`}>
+   172→              {y.slice(2)} {(s.by_year[y] ?? 0) >= 0 ? '+' : '−'}{Math.abs(Math.round(s.by_year[y] ?? 0))}
+   173→            </span>
+   174→          ))}
+   175→        </div>
+   176→      </div>
+   177→      <Badge variant="outline" className={`col-span-2 justify-self-start sm:col-span-1 sm:justify-self-end ${
+   178→        allPos ? 'border-emerald-800 text-emerald-400' : 'border-amber-800 text-amber-400'}`}>
+   179→        {allPos ? '五年全正' : '有负年份'}
+   180→      </Badge>
+   181→    </div>
+   182→  )
+   183→}
+   184→
+   185→function FinalistsTable({ list }: { list: Finalist[] }) {
+   186→  return (
+   187→    <ScrollArea className="max-h-96 rounded-md border border-zinc-800">
+   188→      <table className="w-full text-left text-xs">
+   189→        <thead className="sticky top-0 z-10 bg-zinc-900 shadow-[0_1px_0_0_rgb(63_63_70)]">
+   190→          <tr className="text-[10px] uppercase tracking-wide text-zinc-500">
+   191→            <th className="px-2 py-2">#</th><th className="px-2 py-2">TF</th><th className="px-2 py-2">进场</th>
+   192→            <th className="px-2 py-2">方向</th><th className="px-2 py-2">闸门</th><th className="px-2 py-2">出场</th>
+   193→            <th className="px-2 py-2 text-right">总PnL</th><th className="px-2 py-2 text-right">笔数</th>
+   194→            <th className="px-2 py-2 text-right">笔均</th><th className="px-2 py-2 text-right">26占比</th>
+   195→            <th className="px-2 py-2 text-center">阶梯</th><th className="px-2 py-2 text-center">平台</th>
+   196→          </tr>
+   197→        </thead>
+   198→        <tbody className="font-mono tabular-nums">
+   199→          {list.map((r, i) => (
+   200→            <tr key={i} className={`border-t border-zinc-800/60 ${i === 0 ? 'bg-emerald-500/5 ring-1 ring-inset ring-emerald-700/40' : ''}`}>
+   201→              <td className="px-2 py-1.5 text-zinc-500">{i + 1}</td>
+   202→              <td className="px-2 py-1.5 font-sans font-medium">{r.tf}</td>
+   203→              <td className="px-2 py-1.5 font-sans">{ENTRY_LABEL[r.entry] ?? r.entry}</td>
+   204→              <td className="px-2 py-1.5 font-sans">{DIR_LABEL[r.dir] ?? r.dir}</td>
+   205→              <td className="px-2 py-1.5 font-sans">{GATE_LABEL[r.gate] ?? r.gate}</td>
+   206→              <td className="px-2 py-1.5 font-sans">{EXIT_LABEL[r.exit] ?? r.exit}</td>
+   207→              <td className="px-2 py-1.5 text-right text-emerald-400">{fmtUSD(r.total)}</td>
+   208→              <td className="px-2 py-1.5 text-right text-zinc-300">{r.n}</td>
+   209→              <td className="px-2 py-1.5 text-right text-zinc-300">${r.avg.toFixed(2)}</td>
+   210→              <td className="px-2 py-1.5 text-right text-zinc-400">{r.sh26.toFixed(1)}%</td>
+   211→              <td className="px-2 py-1.5 text-center">{r.ladder
+   212→                ? <CheckCircle2 className="mx-auto h-3.5 w-3.5 text-emerald-400" aria-label="成本阶梯通过" />
+   213→                : <XCircle className="mx-auto h-3.5 w-3.5 text-zinc-600" aria-label="成本阶梯未过" />}</td>
+   214→              <td className="px-2 py-1.5 text-center text-zinc-300">{r.plateau === null ? '—' : `${(r.plateau * 100).toFixed(0)}%`}</td>
+   215→            </tr>
+   216→          ))}
+   217→        </tbody>
+   218→      </table>
+   219→    </ScrollArea>
+   220→  )
+   221→}
+   222→
+   223→function TradesTable({ trades }: { trades: Trade[] }) {
+   224→  return (
+   225→    <ScrollArea className="max-h-96 rounded-md border border-zinc-800">
+   226→      <table className="w-full text-left text-xs">
+   227→        <thead className="sticky top-0 z-10 bg-zinc-900 shadow-[0_1px_0_0_rgb(63_63_70)]">
+   228→          <tr className="text-[10px] uppercase tracking-wide text-zinc-500">
+   229→            <th className="px-2 py-2">进场</th><th className="px-2 py-2">出场</th>
+   230→            <th className="px-2 py-2">向</th><th className="px-2 py-2 text-right">进价</th>
+   231→            <th className="px-2 py-2 text-right">出价</th><th className="px-2 py-2 text-right">成本</th>
+   232→            <th className="px-2 py-2 text-right">PnL</th><th className="px-2 py-2 text-right">持有</th>
+   233→          </tr>
+   234→        </thead>
+   235→        <tbody className="font-mono tabular-nums">
+   236→          {trades.map((t, i) => (
+   237→            <tr key={i} className="border-t border-zinc-800/60">
+   238→              <td className="whitespace-nowrap px-2 py-1.5 text-zinc-400">{t.entry_time}</td>
+   239→              <td className="whitespace-nowrap px-2 py-1.5 text-zinc-400">{t.exit_time}</td>
+   240→              <td className="px-2 py-1.5">
+   241→                <span className={`rounded px-1 py-0.5 text-[10px] font-semibold ${t.side === 'L' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'}`}>
+   242→                  {t.side === 'L' ? '多' : '空'}
+   243→                </span>
+   244→              </td>
+   245→              <td className="px-2 py-1.5 text-right text-zinc-300">{t.entry_px.toFixed(2)}</td>
+   246→              <td className="px-2 py-1.5 text-right text-zinc-300">{t.exit_px.toFixed(2)}</td>
+   247→              <td className="px-2 py-1.5 text-right text-zinc-500">{t.cost.toFixed(2)}</td>
+   248→              <td className={`px-2 py-1.5 text-right font-semibold ${t.pnl >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+   249→                {t.pnl >= 0 ? '+' : '−'}{Math.abs(t.pnl).toFixed(2)}
+   250→              </td>
+   251→              <td className="px-2 py-1.5 text-right text-zinc-500">{t.hold_bars}bar</td>
+   252→            </tr>
+   253→          ))}
+   254→        </tbody>
+   255→      </table>
+   256→    </ScrollArea>
+   257→  )
+   258→}
+   259→
+   260→function AblationCard({ ablation }: { ablation: Record<string, Omit<Summary, 'months' | 'total54'>> }) {
+   261→  const order = ['both/none', 'both/atrmed', 'long/none', 'long/atrp30', 'long/atrmed']
+   262→  const labels: Record<string, string> = {
+   263→    'both/none': '双向 · 无闸门', 'both/atrmed': '双向 · ATR闸门', 'long/none': '只多 · 无闸门',
+   264→    'long/atrp30': '只多 · p30闸门', 'long/atrmed': '只多 · ATR闸门 ★冠军',
+   265→  }
+   266→  const max = Math.max(...order.map((k) => ablation[k]?.total ?? 0), 1)
+   267→  return (
+   268→    <div className="space-y-2">
+   269→      {order.map((k) => {
+   270→        const a = ablation[k]
+   271→        if (!a) return null
+   272→        const isChamp = k === 'long/atrmed'
+   273→        return (
+   274→          <div key={k} className={`grid grid-cols-[7.5rem_1fr_5rem] items-center gap-2 rounded-md p-2 ${isChamp ? 'bg-emerald-500/10 ring-1 ring-inset ring-emerald-700/50' : 'bg-zinc-900/40'}`}>
+   275→            <span className="text-xs text-zinc-300">{labels[k]}</span>
+   276→            <div className="h-5 overflow-hidden rounded-sm bg-zinc-800/60">
+   277→              <motion.div
+   278→                initial={{ width: 0 }} animate={{ width: `${(a.total / max) * 100}%` }} transition={{ duration: 0.6, ease: 'easeOut' }}
+   279→                className={`h-full rounded-sm ${isChamp ? 'bg-emerald-500' : 'bg-emerald-700/70'}`}
+   280→              />
+   281→            </div>
+   282→            <span className="text-right font-mono text-xs font-semibold tabular-nums text-emerald-400">{fmtUSD(a.total)}</span>
+   283→          </div>
+   284→        )
+   285→      })}
+   286→      <p className="pt-1 text-xs leading-relaxed text-zinc-500">
+   287→        同一 M30/Donchian-55/持5日几何下的两个开关消融：<b className="text-zinc-300">只做多 +$1,327</b>（空头在悲观成本下为负贡献）、
+   288→        <b className="text-zinc-300">ATR 闸门再 +$1,320</b>（主要救活 2026：无闸门时 2026 为 −$670）。闸门 = 规则版波动率 Regime Gate，即路线 A 的预演。
+   289→      </p>
+   290→    </div>
+   291→  )
+   292→}
+   293→
+   294→/* ================= page ================= */
+   295→export default function Home() {
+   296→  const [data, setData] = useState<V17Data | null>(null)
+   297→  const [err, setErr] = useState<string | null>(null)
+   298→
+   299→  useEffect(() => {
+   300→    fetch('/data/v17.json')
+   301→      .then((r) => { if (!r.ok) throw new Error(String(r.status)); return r.json() as Promise<V17Data> })
+   302→      .then(setData)
+   303→      .catch((e: unknown) => setErr(e instanceof Error ? e.message : 'load failed'))
+   304→  }, [])
+   305→
+   306→  const c = data?.champion
+   307→  const s = c?.pess03
+   308→
+   309→  return (
+   310→    <div className="flex min-h-screen flex-col bg-zinc-950 text-zinc-100">
+   311→      <header className="border-b border-zinc-800/80 bg-zinc-950/90">
+   312→        <div className="mx-auto w-full max-w-6xl px-4 py-6 sm:px-6">
+   313→          <div className="flex flex-wrap items-center gap-3">
+   314→            <FlaskConical className="h-6 w-6 text-emerald-400" aria-hidden />
+   315→            <div>
+   316→              <h1 className="text-lg font-semibold tracking-tight sm:text-xl">XAUUSD · HTF 突破实验室 <span className="font-mono text-emerald-400">v17</span></h1>
+   317→              <p className="mt-0.5 text-xs text-zinc-500">放弃 M1 微观择时 → 降采样 M15 / M30 / H1 · 纯规则突破基准 · {data?.meta.window ?? ''}</p>
+   318→            </div>
+   319→          </div>
+   320→          <div className="mt-3 flex flex-wrap gap-2">
+   321→            <Badge variant="outline" className="border-emerald-800 bg-emerald-950/40 text-emerald-400"><ShieldCheck className="mr-1 h-3 w-3" />正确结算 · 无回望</Badge>
+   322→            <Badge variant="outline" className="border-zinc-700 text-zinc-300"><Layers className="mr-1 h-3 w-3" />双引擎逐位互验</Badge>
+   323→            <Badge variant="outline" className="border-amber-800 bg-amber-950/40 text-amber-400"><Gauge className="mr-1 h-3 w-3" />0.3×ATR 悲观成本</Badge>
+   324→            <Badge variant="outline" className="border-zinc-700 text-zinc-300"><Timer className="mr-1 h-3 w-3" />串行单仓可部署</Badge>
+   325→          </div>
+   326→        </div>
+   327→      </header>
+   328→
+   329→      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6">
+   330→        {err && (
+   331→          <Card className="border-rose-900 bg-rose-950/30">
+   332→            <CardContent className="p-4 text-sm text-rose-300">数据加载失败：{err}</CardContent>
+   333→          </Card>
+   334→        )}
+   335→        {!data && !err && (
+   336→          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+   337→            {Array.from({ length: 8 }).map((_, i) => <div key={i} className="h-24 animate-pulse rounded-lg bg-zinc-900/60" />)}
+   338→          </div>
+   339→        )}
+   340→
+   341→        {data && c && s && (
+   342→          <div className="space-y-6">
+   343→            {/* 冠军 KPI */}
+   344→            <section aria-label="冠军指标">
+   345→              <div className="mb-3 flex flex-wrap items-center gap-2">
+   346→                <TrendingUp className="h-4 w-4 text-emerald-400" aria-hidden />
+   347→                <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-400">冠军 · M30 Donchian-55 停损单 × 只做多 × ATR 闸门 × 持 5 交易日</h2>
+   348→              </div>
+   349→              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+   350→                <KpiCard icon={<Crosshair className="h-3.5 w-3.5" />} label="总 PnL (0.3×ATR)" value={fmtUSD(s.total)} sub="基准 $732.7 的 4.1×" tone="pos" />
+   351→                <KpiCard icon={<LineChart className="h-3.5 w-3.5" />} label="笔均" value={`$${s.avg.toFixed(2)}`} sub={`t 统计 ${s.t_stat} · 159 笔`} tone="pos" />
+   352→                <KpiCard icon={<CheckCircle2 className="h-3.5 w-3.5" />} label="逐年" value="5/5 全正" sub="2022–2026 每年 15–38 笔" tone="pos" />
+   353→                <KpiCard icon={<Gauge className="h-3.5 w-3.5" />} label="2026 占比" value={pct(s.share2026)} sub="历史基准为 88.9%" />
+   354→                <KpiCard icon={<TrendingUp className="h-3.5 w-3.5" />} label="Sharpe / maxDD" value={`${s.sharpe} / ${fmtUSD(s.maxdd)}`} sub={`胜率 ${pct(s.win_rate * 100)} · PLR 2.19`} />
+   355→                <KpiCard icon={<AlertTriangle className="h-3.5 w-3.5" />} label="成本耐受" value="×3 成本存活" sub={`中位成本 $${s.med_cost}/笔 vs 笔均 $${s.avg}`} tone="warn" />
+   356→              </div>
+   357→            </section>
+   358→
+   359→            {/* 年度 + 权益 */}
+   360→            <div className="grid gap-6 lg:grid-cols-5">
+   361→              <section className="lg:col-span-2" aria-label="年度盈亏">
+   362→                <Card className="h-full border-zinc-800 bg-zinc-900/40">
+   363→                  <CardHeader className="pb-2"><CardTitle className="text-sm text-zinc-300">年度盈亏 · 悲观成本口径</CardTitle></CardHeader>
+   364→                  <CardContent>
+   365→                    <YearBars by={s.by_year} n={s.n_by_year} />
+   366→                    <Separator className="my-4 bg-zinc-800" />
+   367→                    <EquityChart months={s.months} />
+   368→                  </CardContent>
+   369→                </Card>
+   370→              </section>
+   371→
+   372→              <section className="lg:col-span-3" aria-label="成本阶梯与消融">
+   373→                <Card className="h-full border-zinc-800 bg-zinc-900/40">
+   374→                  <CardHeader className="pb-2">
+   375→                    <CardTitle className="text-sm text-zinc-300">成本阶梯（HTF 论题检验）+ 规则消融</CardTitle>
+   376→                  </CardHeader>
+   377→                  <CardContent className="space-y-3">
+   378→                    <LadderRow name="base" s={c.base} note="$0.50/RT 固定" />
+   379→                    <LadderRow name="pess03" s={c.pess03} note="0.3×ATR/RT 悲观" />
+   380→                    <LadderRow name="pess05" s={c.pess05} note="0.5×ATR/RT 极端" />
+   381→                    <p className="text-xs leading-relaxed text-zinc-500">
+   382→                      base→0.5×ATR 仅回撤 <b className="text-zinc-300">−13.5%</b>，五年在全部三档成本下保持全正——
+   383→                      「点差+滑点只占 H1 单笔波动一小部分」的论题被坐实（实际数据点差中位仅 $0.16/RT）。M1 时代同口径下边缘为 $0.095/笔且 δ=0.1 即蒸发。
+   384→                    </p>
+   385→                    <Separator className="bg-zinc-800" />
+   386→                    <AblationCard ablation={data.ablation} />
+   387→                  </CardContent>
+   388→                </Card>
+   389→              </section>
+   390→            </div>
+   391→
+   392→            {/* 策略规格 + 逐笔 */}
+   393→            <section aria-label="策略与逐笔">
+   394→              <Tabs defaultValue="spec">
+   395→                <TabsList className="bg-zinc-900">
+   396→                  <TabsTrigger value="spec" className="data-[state=active]:bg-zinc-800">策略规格</TabsTrigger>
+   397→                  <TabsTrigger value="trades" className="data-[state=active]:bg-zinc-800">逐笔 159 笔</TabsTrigger>
+   398→                  <TabsTrigger value="finalists" className="data-[state=active]:bg-zinc-800">28 强全表</TabsTrigger>
+   399→                </TabsList>
+   400→                <TabsContent value="spec" className="mt-3">
+   401→                  <div className="grid gap-3 md:grid-cols-2">
+   402→                    <Card className="border-zinc-800 bg-zinc-900/40">
+   403→                      <CardHeader className="pb-2"><CardTitle className="text-sm text-zinc-300">交易规则（4 条）</CardTitle></CardHeader>
+   404→                      <CardContent className="space-y-2.5 text-sm leading-relaxed text-zinc-400">
+   405→                        <p><b className="text-zinc-200">1 · 进场</b> — 55 根 M30 高点通道（海龟 S2）：价格触及通道线上方即停损单成交（跳空按开盘价，保守）；仅做多。</p>
+   406→                        <p><b className="text-zinc-200">2 · 闸门</b> — ATR14 高于其自身过去一季度中位数才允许开仓（波动扩张期；避开 2022 型低波绞肉）。</p>
+   407→                        <p><b className="text-zinc-200">3 · 出场</b> — 持满 5 个交易日（240 根 M30），第 240 根开盘市价平仓。无止损（尾部风险见披露）。</p>
+   408→                        <p><b className="text-zinc-200">4 · 纪律</b> — 串行单仓，持仓期内忽略新信号；成本 = 0.3×ATR/RT 从每笔扣除。</p>
+   409→                        <Separator className="bg-zinc-800" />
+   410→                        <p className="text-xs text-zinc-500">
+   411→                          信号只用已完成 bar；吊灯止损若出现在 k 根，其价位由 k−1 及更早信息决定；同根多事件保守排序（止损优先）；数据末端强平。
+   412→                          全部 6,480 个网格配置经纯 Python 与 numba 双引擎逐位互验。
+   413→                        </p>
+   414→                      </CardContent>
+   415→                    </Card>
+   416→                    <Card className="border-zinc-800 bg-zinc-900/40">
+   417→                      <CardHeader className="pb-2"><CardTitle className="text-sm text-zinc-300">为什么是它 — 三方证据</CardTitle></CardHeader>
+   418→                      <CardContent className="space-y-2.5 text-sm leading-relaxed text-zinc-400">
+   419→                        <p><b className="text-emerald-400">① 结构</b> — 赢家集中在「突破后持 5 日」：黄金 H1 级突破后动量延续半衰期约 5 个交易日，与央行购金/降息周期的单边宏观叙事一致。</p>
+   420→                        <p><b className="text-emerald-400">② 稳健</b> — 三档成本全正 + 邻域平台 50% + 跨 TF（H1 双变体同过全部门）。原始总分更高的 M15 don40s（$3,661）因平台 0% 被预注册规则剔除。</p>
+   421→                        <p><b className="text-emerald-400">③ 对照</b> — 同引擎 M1 真实冠军 $2,599/27,265 笔（笔均 $0.095，2024 微负）；HTF 冠军以 1/171 的笔数赚 1.15× 总量，笔均质量 <b className="text-zinc-200">197×</b>。</p>
+   422→                        <p className="text-xs text-zinc-500">历史 $732.7 基准本身引擎存疑（v16 披露同款回望写法）且 2026 占 88.9%，此处仅作参照刻度。</p>
+   423→                      </CardContent>
+   424→                    </Card>
+   425→                  </div>
+   426→                </TabsContent>
+   427→                <TabsContent value="trades" className="mt-3">
+   428→                  <TradesTable trades={c.trades} />
+   429→                </TabsContent>
+   430→                <TabsContent value="finalists" className="mt-3">
+   431→                  <p className="mb-2 text-xs text-zinc-500">
+   432→                    预注册筛选：0.3×ATR 悲观成本下逐年全正 ∧ 笔均 ≥ $5 ∧ 笔数 ≥ 150 ∧ 2026 占比 ≤ 70%；「阶梯」= base/pess03/pess05 三档全正，「平台」= 邻域参数全正率。★行 = 最终冠军。
+   433→                  </p>
+   434→                  <FinalistsTable list={data.finalists} />
+   435→                </TabsContent>
+   436→              </Tabs>
+   437→            </section>
+   438→
+   439→            {/* 失败启示录 */}
+   440→            <section aria-label="实验发现与披露">
+   441→              <Card className="border-zinc-800 bg-zinc-900/40">
+   442→                <CardHeader className="pb-2">
+   443→                  <CardTitle className="text-sm text-zinc-300">实验发现与诚实披露</CardTitle>
+   444→                </CardHeader>
+   445→                <CardContent className="grid gap-4 text-sm leading-relaxed text-zinc-400 md:grid-cols-2">
+   446→                  <div className="space-y-2.5">
+   447→                    <p><b className="text-zinc-200">吊灯再次阵亡</b> — 2.5/3/3.5×ATR 追踪止损在 HTF 正确结算下无一进入 top10；「ATR 移动出场」的直觉在 M1 与 HTF 同时被证伪。真正的主导维度是<b className="text-emerald-400">持仓期的时间结构</b>（5 日 ≫ 其他）。</p>
+   448→                    <p><b className="text-zinc-200">2022 是突破系统的绞肉年</b> — 无闸门时 210 个初筛配置中 188 个在 2022 为负（金价全年区间震荡）；ATR 闸门（规则版 Regime Gate）在冠军几何上把 2022 从 +$89 提到 +$243、把 2026 从 −$670 救回 +$859，这正是路线 A 的最小可行版本。</p>
+   449→                    <p><b className="text-zinc-200">空头为负贡献</b> — 悲观成本下 HTF 空头突破几乎全线为负；「双向波动收割」是 M1 时代的 bug 幻影，HTF 真实结构是「顺势单边」。</p>
+   450→                  </div>
+   451→                  <div className="space-y-2.5">
+   452→                    <p className="flex gap-2"><AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" aria-hidden />
+   453→                      <span><b className="text-amber-400">无止损尾部风险</b> — 冠军纯靠 5 日时间出场，单笔最差 −$168、p10 −$49；灾难止损变体（+8ATR 吊停）会把总 PnL 砍到 $1,405 并打破全正，风控上需用仓位规模而非止损解决。</span></p>
+   454→                    <p className="flex gap-2"><AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-400" aria-hidden />
+   455→                      <span><b className="text-amber-400">样本内网格选择</b> — 6,480 配置全样本扫描，平台/阶梯/跨 TF 是缓解而非消除；2026 仅半年数据；159 笔 t=3.13 达标但非厚样本。live 前应前向纸面验证 ≥ 3 个月。</span></p>
+   456→                    <p className="flex gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" aria-hidden />
+   457→                      <span><b className="text-emerald-400">ML 的位置已让出</b> — 按用户路线：规则基准已立，下一步 ML 不做方向预测，而在多资产（DXY/US10Y/VIX/金银比）上做周/日级 Regime Filter 替换 ATR 闸门。本轮仅完成规则版。</span></p>
+   458→                  </div>
+   459→                </CardContent>
+   460→              </Card>
+   461→            </section>
+   462→
+   463→            {/* 跑者 */}
+   464→            <section aria-label="H1 变体">
+   465→              <div className="mb-3 flex items-center gap-2">
+   466→                <Layers className="h-4 w-4 text-zinc-500" aria-hidden />
+   467→                <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-400">同门 H1 变体（同过全部门）</h2>
+   468→              </div>
+   469→              <div className="grid gap-3 md:grid-cols-2">
+   470→                {data.runners.map((r) => (
+   471→                  <Card key={String(r.spec.name)} className="border-zinc-800 bg-zinc-900/40">
+   472→                    <CardHeader className="pb-2">
+   473→                      <CardTitle className="font-mono text-xs text-zinc-300">
+   474→                        {r.spec.tf} · {ENTRY_LABEL[String(r.spec.entry)]} · {DIR_LABEL[String(r.spec.dir)]} · {GATE_LABEL[String(r.spec.gate)]} · {EXIT_LABEL[String(r.spec.exit)]}
+   475→                      </CardTitle>
+   476→                    </CardHeader>
+   477→                    <CardContent>
+   478→                      <div className="flex items-baseline gap-3">
+   479→                        <span className="font-mono text-xl font-semibold tabular-nums text-emerald-400">{fmtUSD(r.pess03.total)}</span>
+   480→                        <span className="text-xs text-zinc-500">{r.pess03.trades} 笔 · 笔均 ${r.pess03.avg.toFixed(2)} · 26占比 {r.pess03.share2026.toFixed(1)}% · t={r.pess03.t_stat}</span>
+   481→                      </div>
+   482→                      <div className="mt-3"><YearBars by={r.pess03.by_year} n={r.pess03.n_by_year} /></div>
+   483→                    </CardContent>
+   484→                  </Card>
+   485→                ))}
+   486→              </div>
+   487→            </section>
+   488→          </div>
+   489→        )}
+   490→      </main>
+   491→
+   492→      <footer className="mt-auto border-t border-zinc-800/80 bg-zinc-950/95 pb-[env(safe-area-inset-bottom)]">
+   493→        <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-4 text-xs text-zinc-600 sm:px-6">
+   494→          <span>v17 · HTF Breakout Lab · 引擎 {data?.meta.engine.slice(0, 28) ?? 'correct-settlement'} · 生成于 {data?.meta.generated ?? ''}</span>
+   495→          <span>{data?.meta.cost_note ?? ''}</span>
+   496→        </div>
+   497→      </footer>
+   498→    </div>
+   499→  )
+   500→}
+   501→

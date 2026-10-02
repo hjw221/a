@@ -1,0 +1,28 @@
+[W0] 因子池: 39 | 数据 321636 M5行
+[W0] R0 4e45007937 PnL -867 (15080笔 PLR 0.15 Sharpe -2.6 posFold 22%) [7s]
+[W0] R1 de31cd8184 PnL 21 (1207笔 PLR 1.27 Sharpe 0.3 posFold 56%) [6s]
+[W0] R2 b283e9f1ce PnL -1000000000 (0笔 PLR 0.00 Sharpe -99.0 posFold 0%) [6s]
+[W0] R3 60ea4e0d33 PnL -39 (161笔 PLR 0.00 Sharpe -1.6 posFold 0%) [5s]
+[W0] R4 5683bb1356 PnL 10 (25笔 PLR 12.51 Sharpe 1.8 posFold 33%) [8s]
+[W0] R5 878e83a3ba PnL -170 (8256笔 PLR 0.38 Sharpe -1.4 posFold 22%) [5s]
+[W0] R6 5d5fda4593 PnL 67 (3624笔 PLR 2.10 Sharpe 1.0 posFold 67%) [5s]
+[W0] R7 9ecb5d057c PnL 38 (186笔 PLR 6.53 Sharpe 1.9 posFold 56%) [11s]
+[W0] R8 c014fd51a2 PnL -739 (18720笔 PLR 0.13 Sharpe -3.0 posFold 22%) [5s]
+[W0] R9 33f61cd7ee PnL -471 (14007笔 PLR 0.23 Sharpe -2.3 posFold 22%) [5s]
+[W0] R10 c52fb7db6d PnL -761 (15718笔 PLR 0.16 Sharpe -2.4 posFold 33%) [7s]
+[W0] R11 9a91d45bf3 PnL -6 (128笔 PLR 0.47 Sharpe -0.6 posFold 44%) [10s]
+[W0] DONE best=67
+[W0] 因子池: 39 | 数据 321636 M5行
+[W0] R0 67f07b983d PnL -2218 (28090笔 PLR 0.00 Sharpe -6.9 posFold 0%) [18s]
+[W0] R1 4ec9b476a6 PnL -790 (15904笔 PLR 0.19 Sharpe -2.4 posFold 22%) [11s]
+[W0] R2 da9eae8b5a PnL -1870 (20968笔 PLR 0.01 Sharpe -5.4 posFold 11%) [8s]
+[W0] R3 16e5bd615a PnL -1205 (16519笔 PLR 0.01 Sharpe -5.3 posFold 11%) [7s]
+[W0] R4 1b3dcb7344 PnL 65 (844笔 PLR 3.05 Sharpe 1.2 posFold 44%) [5s]
+[W0] R5 8d3927024e PnL -281 (8801笔 PLR 0.39 Sharpe -1.4 posFold 44%) [6s]
+[W0] R6 e3568b86b8 PnL -62 (1344笔 PLR 0.44 Sharpe -0.9 posFold 33%) [5s]
+[W0] R7 00d18bfb63 PnL -742 (17806笔 PLR 0.23 Sharpe -2.1 posFold 33%) [11s]
+[W0] R8 944909ac1b PnL -1325 (13949笔 PLR 0.04 Sharpe -4.2 posFold 22%) [8s]
+[W0] R9 4728461ed1 PnL -25 (5356笔 PLR 0.84 Sharpe -0.2 posFold 44%) [9s]
+[W0] R10 be66b3780c PnL -9 (2052笔 PLR 0.91 Sharpe -0.1 posFold 44%) [7s]
+[W0] R11 d3b063ef2e PnL -27 (2311笔 PLR 0.61 Sharpe -0.7 posFold 33%) [27s]
+[W0] DONE best=65

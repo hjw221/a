@@ -1,0 +1,14 @@
+[W1] 因子池: 39 | 数据 321636 M5行
+[W1] R0 4b9f69076e PnL -2464 (27824笔 PLR 0.00 Sharpe -6.8 posFold 11%) [17s]
+[W1] R1 b149a46798 PnL -2931 (33810笔 PLR 0.01 Sharpe -5.4 posFold 11%) [8s]
+[W1] R2 ef8089c781 PnL -4 (114笔 PLR 0.62 Sharpe -0.4 posFold 22%) [8s]
+[W1] R3 baa1db19fb PnL -645 (12966笔 PLR 0.17 Sharpe -2.4 posFold 22%) [10s]
+[W1] R4 094bf037c4 PnL -2080 (25326笔 PLR 0.00 Sharpe -7.6 posFold 0%) [5s]
+[W1] R5 1acd7ce726 PnL 82 (3886笔 PLR 2.04 Sharpe 0.8 posFold 67%) [4s]
+[W1] R6 cde9f00517 PnL -1000000000 (0笔 PLR 0.00 Sharpe -99.0 posFold 0%) [4s]
+[W1] R7 94d2e3ed85 PnL 1 (14笔 PLR 1.52 Sharpe 0.4 posFold 22%) [11s]
+[W1] R8 71e7f08e44 PnL 67 (2354笔 PLR 2.23 Sharpe 1.0 posFold 44%) [5s]
+[W1] R9 38f26fbd18 PnL -992 (13862笔 PLR 0.05 Sharpe -4.1 posFold 22%) [5s]
+[W1] R10 5b8aa1a516 PnL -768 (11305笔 PLR 0.08 Sharpe -3.4 posFold 22%) [29s]
+[W1] R11 b7f1a51a53 PnL -1322 (13974笔 PLR 0.04 Sharpe -4.1 posFold 22%) [3s]
+[W1] DONE best=82

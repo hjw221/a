@@ -1,0 +1,88 @@
+{
+  "n_factors": 51,
+  "n_clear_samples": 226866,
+  "dir_lgb_auc_oos": 0.579082472753685,
+  "ic_top10": [
+    {
+      "f": "gap_overnight",
+      "icir": 7.93,
+      "ic": 0.3553
+    },
+    {
+      "f": "mom_3",
+      "icir": -0.903,
+      "ic": -0.0168
+    },
+    {
+      "f": "mom_6",
+      "icir": -0.745,
+      "ic": -0.0197
+    },
+    {
+      "f": "dist_ma20",
+      "icir": -0.685,
+      "ic": -0.0278
+    },
+    {
+      "f": "pos_day_hi",
+      "icir": -0.675,
+      "ic": -0.0321
+    },
+    {
+      "f": "mom_12",
+      "icir": -0.661,
+      "ic": -0.0239
+    },
+    {
+      "f": "close_in_rng",
+      "icir": -0.609,
+      "ic": -0.0079
+    },
+    {
+      "f": "dist_ma240",
+      "icir": -0.609,
+      "ic": -0.0316
+    },
+    {
+      "f": "mom_576",
+      "icir": -0.596,
+      "ic": -0.0334
+    },
+    {
+      "f": "mom_24",
+      "icir": -0.581,
+      "ic": -0.0261
+    }
+  ],
+  "gain_top10": {
+    "gap_overnight": 33200.0,
+    "mins_from_open": 20156.0,
+    "hour_sin": 4347.0,
+    "pk_vol": 2654.0,
+    "range_exp": 2249.0,
+    "vol_of_vol": 2002.0,
+    "mom_576": 1968.0,
+    "dollar_vol": 1958.0,
+    "atr_norm": 1614.0,
+    "hour_cos": 1595.0
+  },
+  "perm_top10": {
+    "gap_overnight": 0.0756,
+    "mins_from_open": 0.0129,
+    "mom_3": 0.0012,
+    "ema_m_s": 0.0008,
+    "mom_576": 0.0007,
+    "dist_ma20": 0.0005,
+    "pos_day_lo": 0.0002,
+    "vol_ratio_fs": 0.0002,
+    "atr_norm": 0.0001,
+    "stoch_pos_96": 0.0001
+  },
+  "whitelist": [
+    "dist_ma20",
+    "gap_overnight",
+    "mins_from_open",
+    "mom_576",
+    "stoch_pos_288"
+  ]
+}

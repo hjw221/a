@@ -1,0 +1,6 @@
+[master] 4 workers x 12 rounds x 5 batches
+[master] batch 0: 558 结果, 3 候选
+[master]   决赛 517027887a: 搜索PnL 393 -> 决赛PnL -538 (29891笔 PLR 0.61)
+[master]   决赛 41e66400ee: 搜索PnL 335 -> 决赛PnL 818 (24390笔 PLR 2.10)
+[master]   决赛 0fcdb7a531: 搜索PnL 279 -> 决赛PnL 343 (7286笔 PLR 2.04)
+[master] CHAMPION!

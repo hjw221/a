@@ -1,0 +1,64 @@
+{
+  "primary": {
+    "total": 3027.5,
+    "per_book_equivalent": 756.9,
+    "by_year": {
+      "2022": 61.7,
+      "2023": 197.3,
+      "2024": 146.7,
+      "2025": 747.3,
+      "2026": 1874.5
+    },
+    "by_year_volflat": {
+      "2022": 84.5,
+      "2023": 304.1,
+      "2024": 146.7,
+      "2025": 393.6,
+      "2026": 445.8
+    },
+    "volflat_total": 1374.7,
+    "all_years_positive": true,
+    "share_2026": 0.619,
+    "capture_2224": 0.134,
+    "sharpe": 1.22,
+    "max_monthly_drawdown": -326.8,
+    "months_traded": 41,
+    "months_total": 48,
+    "beats_732_total": true,
+    "beats_732_per_book": true,
+    "books": [
+      "champ",
+      "weak",
+      "v11_hl0",
+      "eq1.2_2.0"
+    ],
+    "W": 2,
+    "book_contribution": {
+      "champ": 749.4,
+      "weak": 1062.6,
+      "v11_hl0": 886.3,
+      "eq1.2_2.0": 329.2
+    },
+    "book_active_months": {
+      "champ": 24,
+      "weak": 33,
+      "v11_hl0": 19,
+      "eq1.2_2.0": 28
+    },
+    "acceptance": {
+      "A1_total>732": true,
+      "A2_all_years_pos": true,
+      "A3_share26<=70%": true,
+      "A4_capture2224>=0.3": false
+    }
+  },
+  "grid_pass_count": 0,
+  "grid_total": 155,
+  "top5_passing": [],
+  "notes": [
+    "验收标准为 Task 25 在双臂启动前预定: 总量>732 + 逐年全正 + 2026占比<=70% + 2022-24捕获>=0.3",
+    "weak book a7f3cb3ee3 从 144 配置中按 weak2324 目标选出; champ 从 ~558 配置选出 — 多重检验偏差存在",
+    "eq1.2_2.0 是 champ 同信号钳制重仿真(与 champ 高相关, 差异仅仓位几何)",
+    "2026 占比 45.5% 的 weak book 是本次年度均衡的核心改善来源"
+  ]
+}
