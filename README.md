@@ -22,6 +22,9 @@ pipelines/
   v4_m1_ignition/               # v4 "M1点火-延续" 从零路线（已证伪）
 scripts/                        # 全部分析/标定脚本 (v3~v7, scalp, m1, v4_* 系列)
 packages/                       # 三个交付 zip（v3bal_ens 两个时点备份 + MT5 部署包）
+weather-station/                # 【2026-10-03 新增】UC4 跨资产天气预警站（独立可部署）
+                                #   四台 R2 冠军储层引擎 TS 移植 (IC 0.49~0.52 vs Python ±0.002)
+                                #   Bun 常驻服务 + 实时仪表盘 tab，数据自备 (见其 README)
 ```
 
 ## 三、核心对比：旧冠军 vs 从零新模型（OOS 2024-08 ~ 2026-07，同一验证窗，含成本）
