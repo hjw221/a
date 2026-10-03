@@ -74,6 +74,7 @@ async function replayAll() {
     msg: `回放完成: ${slots.toLocaleString()} 个15分钟槽 · 引擎就绪 · 进入常驻轮询(30s)`,
   })
   status = 'ready'
+  progress = ''
   broadcast({ type: 'ready', state: fullState() })
 }
 
