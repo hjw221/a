@@ -12,6 +12,8 @@ import { ReservoirTab } from '@/components/reservoir-tab'
 import type { ReservoirData } from '@/components/reservoir-tab'
 import { V19Tab } from '@/components/v19-tab'
 import type { V19Data } from '@/components/v19-tab'
+import { R2Tab } from '@/components/r2-tab'
+import type { R2Data } from '@/components/r2-tab'
 import {
   AlertTriangle, CheckCircle2, Crosshair, Download, FlaskConical, Gauge, Layers,
   LineChart, ShieldCheck, Timer, TrendingUp, XCircle,
@@ -587,6 +589,7 @@ export default function Home() {
   const [v18, setV18] = useState<V18Data | null>(null)
   const [res, setRes] = useState<ReservoirData | null>(null)
   const [v19, setV19] = useState<V19Data | null>(null)
+  const [r2, setR2] = useState<R2Data | null>(null)
 
   useEffect(() => {
     fetch('/data/v17.json')
@@ -605,6 +608,10 @@ export default function Home() {
       .then((r) => { if (!r.ok) throw new Error(String(r.status)); return r.json() as Promise<V19Data> })
       .then(setV19)
       .catch(() => setV19(null))
+    fetch('/data/r2.json')
+      .then((r) => { if (!r.ok) throw new Error(String(r.status)); return r.json() as Promise<R2Data> })
+      .then(setR2)
+      .catch(() => setR2(null))
   }, [])
 
   const c = data?.champion
@@ -649,6 +656,7 @@ export default function Home() {
               <TabsTrigger value="v18" className="data-[state=active]:bg-zinc-800">v18 · 分支A 静态止损实验室</TabsTrigger>
               <TabsTrigger value="r1" className="data-[state=active]:bg-zinc-800">R1 · Reservoir 引擎实验室</TabsTrigger>
               <TabsTrigger value="v19" className="data-[state=active]:bg-zinc-800">v19 · 路线A/B 终局审判</TabsTrigger>
+              <TabsTrigger value="r2" className="data-[state=active]:bg-zinc-800">R2 · 自我进化×四用途审判</TabsTrigger>
             </TabsList>
             <TabsContent value="v17" className="mt-4">
           <div className="space-y-6">
@@ -847,13 +855,20 @@ export default function Home() {
                 </div>
               )}
             </TabsContent>
+            <TabsContent value="r2" className="mt-4">
+              {r2 ? <R2Tab data={r2} /> : (
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                  {Array.from({ length: 8 }).map((_, i) => <div key={i} className="h-24 animate-pulse rounded-lg bg-zinc-900/60" />)}
+                </div>
+              )}
+            </TabsContent>
           </Tabs>
         )}
       </main>
 
       <footer className="mt-auto border-t border-zinc-800/80 bg-zinc-950/95 pb-[env(safe-area-inset-bottom)]">
         <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-2 px-4 py-4 text-xs text-zinc-600 sm:px-6">
-          <span>v17→v18→R1→v19 · HTF Breakout + Static Stop + Streaming RLS-Reservoir + 能量神谕闸门审判 · 双引擎互验 · 基线复现断言 · 生成于 {data?.meta.generated ?? ''}</span>
+          <span>v17→v18→R1→v19→R2 · HTF Breakout + Streaming RLS-Reservoir + 能量审判 + 自我进化 · 生成于 {data?.meta.generated ?? ''}</span>
           <span>{data?.meta.cost_note ?? ''}</span>
         </div>
       </footer>

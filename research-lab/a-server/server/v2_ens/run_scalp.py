@@ -60,7 +60,7 @@ def stage_prep():
     F, feats, atr = build_features_s1(m1)
     print(f"[prep] 特征 {F.shape[1]} 个 x {len(F):,} 行 ({time.time()-t0:.0f}s)")
 
-    m1_t = (m1.index.astype("int64") // 10**9 // 60).to_numpy(np.int64)
+    m1_t = (m1.index.astype("datetime64[s]").astype("int64") // 60).to_numpy(np.int64)
     m1_pack = (m1_t, m1["OPEN"].to_numpy(np.float64), m1["HIGH"].to_numpy(np.float64),
                m1["LOW"].to_numpy(np.float64), m1["CLOSE"].to_numpy(np.float64))
     lab, valid = make_labels_m1(m1_pack, spread_cost, GEOM)

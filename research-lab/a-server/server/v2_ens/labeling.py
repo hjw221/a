@@ -113,7 +113,7 @@ def label_all(m1_t, m1_o, m1_h, m1_l, m1_c,
 
 def make_labels(m5, m1_pack, spread_cost, atr, cfg):
     """Python包装: 返回标签DataFrame与有效行mask。"""
-    m5_t = (m5.index.astype("int64") // 10**9 // 60).to_numpy(np.int64)
+    m5_t = (m5.index.astype("datetime64[s]").astype("int64") // 60).to_numpy(np.int64)
     m1_t, m1_o, m1_h, m1_l, m1_c = m1_pack
     atr_arr = atr.to_numpy(np.float64)
     res = label_all(m1_t, m1_o, m1_h, m1_l, m1_c, m5_t, atr_arr, spread_cost,

@@ -1,0 +1,46 @@
+{
+ "meta": {
+  "generated": "2026-10-03",
+  "champion_cfg": "nres50 lam0.9999 log feat8",
+  "xau_ic": 0.4907,
+  "transmission": {
+   "dxy_lag30_h4": 0.447,
+   "xag_lag30_h4": 0.5268,
+   "dxy_lag30_h16": 0.4821,
+   "xag_lag30_h16": 0.4718,
+   "dxy_lag60_h4": 0.4484,
+   "xag_lag60_h4": 0.5297,
+   "dxy_lag60_h16": 0.5258,
+   "xag_lag60_h16": 0.5298,
+   "dxy_lag120_h4": 0.2409,
+   "xag_lag120_h4": 0.2546,
+   "dxy_lag120_h16": 0.5371,
+   "xag_lag120_h16": 0.5506,
+   "xau_self_h4": 0.4907,
+   "xau_self_h16": 0.4478
+  }
+ },
+ "augmented": {
+  "aug_R_only": {
+   "ic_var": 0.5363,
+   "ic_multi": {
+    "h4": 0.5363,
+    "h8": 0.5509,
+    "h16": 0.4371,
+    "h32": 0.2932
+   },
+   "ms": 0.108
+  },
+  "aug_R_d2": {
+   "ic_var": 0.5384,
+   "ic_multi": {
+    "h4": 0.5384,
+    "h8": 0.5512,
+    "h16": 0.4366,
+    "h32": 0.2896
+   },
+   "ms": 0.104
+  }
+ },
+ "shuffle_control": 0.4738
+}

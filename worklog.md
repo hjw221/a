@@ -282,173 +282,26 @@ Stage Summary:
 - GitHub 待推 server 分支; 私钥仍在(本轮沙箱未重置)
 
 ---
-Task ID: 29
+Task ID: 36
 Agent: main (Z.ai Code)
-Task: 用户三路线指令(路线A波动率Regime Gate / 路线B解剖随机优于模型 / 路线C Donchian+Keltner纯规则擂台) — 执行中发现并修复项目级时域大bug
+Task: 用户"挖挖R1其他部署方案/试试联动v3bal_ens/R1自身再进步 + DXY和AG数据" — R2 自我进化 × 四用途审判 × v3bal_ens 联动
 
 Work Log:
-- 私钥第5次恢复(md5 2e1f49e2); v15已推GitHub(a2af0a0); Task28收尾完毕
-- v16_diag.py 四流单变量剥离上线服务器(model/random/random+model方向/model+随机方向, 0.8min跑完)
-- **灾难级发现: 服务器pandas 3.0.6的DatetimeIndex dtype=datetime64[us], astype("int64")//10**9把微秒当纳秒 → m1_t/sig_t全部落在千秒域, +300偏移实为+300,000秒=3.47天 → 服务器上v10-v16全部实验的进场时刻=信号后3.47天**; 本地pandas 2.2.3纳秒域正确(逐位对照实锤: 服务器fold25 filled=159 vs 本地325)
-- 该bug一并解释历史谜团: 方向模型学不动/因子方向无alpha/ML只有硬币级贡献 — 模型一直预测"3.47天后"的市场, 信号因子与目标无关; 历史$818/$962/$1391/$20602全是错位域幻影(champ配置正确域base臂=**-$173**)
-- 修复: 全部astype("int64")//10**9 → astype("datetime64[s]").astype("int64")(单位无关); stage_c_loop 3处+v16系列6处; 修复后服务器与本地逐位一致(fold25 filled=325/pnl=1054.8双端)
-- 全套正确域重跑(backup results_*_buggy_ts): breakout/ctrl2/v15_exit serial/diag/diag2/gate
-- 路线B正确域结论: ①随机胜模型主因=吞吐N(随机满载$123,902/38,804笔 vs model $29,719/11,860) ②同笔数插值random@11,860≈$31,153 vs model $29,719(打平略负-4.6%) ③model方向稳定负贡献(rnd_dir<rnd全rate成立) ④追高检验: model追高率9.5% vs random 20.4%(ML避高,非陷阱) ⑤MFE/MAE回到4.1/4.1 ATR合理量级
-- 路线C正确域擂台: **kelt(EMA20±2ATR14突破)+吊灯3ATR = $72,287/16,230笔/笔均$4.45** 五年全正{3819/9997/10287/19722/28464} share26=39.4% 多空44/56; don20 $70,706; 均碾压model/random; 服务器逐位复现本地 ✓
-- 路线A正确域gate(kelt信号上): sqz_rule笔均+7.8%($4.80) atr_rule笔均+22%($5.45)但总量降; ML gate弱(mfe AUC0.578正类86%无过滤力, er AUC0.505全灭, rv $11.4K小样本); slip敏感性kelt x2=$70,592 x3=$68,897(-5%)
-- 路线C的kelt是C选手中质量王(笔均4.45 vs 满载随机3.19), 满载随机是吞吐王($124K)
+- 沙箱第N次重置恢复: paramiko装回 + 私钥第5次恢复(服务器持久卷md5 2e1f49e2) + fetch发现reservoir-engine分支(v19)与server分支(v16-v19/MQ5)
+- 数据: filester.me 3文件(DXYm/XAGUSDm/XAGUSDc M1 2022.01-2026.06) via POST /v2/api/public/download → CDN token → 双文件2.2MB/s并行下载, 尺寸逐字节核对
+- R2 引擎 (reservoir_engine2.py): 默认=bitwise复现v1(PnL −$14,012.9 vs −$14,013, IC 0.3426, 换手11,092 ✓); 修GMM剪枝kb越界潜在bug(v1同款从未触发)
+- 35臂改进网格: log目标/多尺度漏积分/8维输入(session sin-cos+慢ATR比+1h动量)/λ-ensemble/Huber/施密特执行/nres 500→30/λ 0.999→0.9999
+- 根因发现: λ=0.999的RLS有效记忆≈1000bar, D=505每维仅~2有效样本严重欠定 → 缩小储层=改善条件数; nres50+λ0.9999+log+8维=冠军 IC 0.4907(h8 0.528/h16 0.448/h32 0.301), 0.10ms/bar(5×), 换手3237(施密特942=−92%), 净亏−$1,287(v1 −$14,013)
+- 对照: 3种子0.473/0.482/0.491稳健; 洗牌IC→−0.019归零; 被证伪臂诚实记录(漏积分8维有害/λ-ens无增益2.3ms超标/Huber no-op/nres30回落)
+- v3bal_ens考古修复: 6处astype(int64)//1e9//60在pandas3 datetime64[us]下千秒域(入场迟到≤17min+吞信号) → datetime64[s]中转修复; 第二层坑=旧checkpoint短路回放9/30结果(需全清); 第三层坑=tuned_params被purge; 修复版重跑1657笔/+$740/PLR2.62(历史1611/+$1,113; bug版409/−$40.7)
+- 联动实验(1657笔×冠军预测流): L1高能执行R≥1.2每笔$0.68(+51%)但饿死总量, shuffle对照$0.33/笔=真实但小幅; L2呼吸≈线性缩放无alpha省16%保证金; L3断路器+$26方向对量级小; 结论=真实小幅择时信息非PnL放大器(视界错配: 1-4h预测 vs 34分钟持仓)
+- UC1网格装甲: 均值无梯度但买侧p5逆向偏移d1−$3.5→d9−$14.0(4×恶化)=尾部证据; UC2呼吸阀: decile 0.345→2.525(7.32×), 斜率1.043近完美校准=强证据; UC3断路器: d2>25→未来1h方差5.9×中位(n=114), 极端事件前4根预警lift 11.5×覆盖7%, 含2022-02-24俄乌×5=快速反应器+温和前瞻
+- UC4跨资产(用户新数据): 冠军配置直接迁移DXY自IC 0.4915/XAG 0.5185(跨资产泛化✓); 传输=XAG能量滞后120min→XAU 4h方差IC 0.5506超XAU自身0.4478(白银领先黄金); 嵌合引擎8+2维IC 0.491→0.5363(+d2:0.5384); shuffle 0.4738<基线=增益真实 → 四用途中唯一IC提升通道
+- 前端: r2-tab.tsx第五tab, lint过, agent-browser实测: tab切换✓关键数字全渲染✓无console错误✓390px溢出0✓
+- 归档: remote-ops-record/r2_20261003/(REPORT_R2.md+SUMMARY+35臂JSON+冠军npz+联动/跨资产/用例JSON+修复版v3bal交易流); 数据备份/data-backup/asset(md5 016c51ff/f64d2936)
 
 Stage Summary:
-- 项目史上最大bug修复: 3.47天时域错位污染服务器全部历史ML成绩; 修复一行(单位无关转换), 全部实验重跑
-- 正确域终局: ML无alpha(时刻打平/方向负/champ配置-$173); 利润引擎=吊灯出场; 吞吐定总量; 突破信号质量真实(+39%笔均 vs 随机)
-- kelt+吊灯$72,287 = 新基准线; 满载随机$123,902 = 吞吐极限参照
-- v16_geom.py(宽度x持仓网格, kelt+rnd1000双源)运行中
-
----
-Task ID: 30
-Agent: main (Z.ai Code)
-Task: 真实地图收尾 — bug2(吊灯回望结算)发现与修复 + 全部正确结算扫描 + 披露文档 + GitHub推送
-
-Work Log:
-- v16_geom.py 几何扫描(kelt/rnd1000 x 宽度x持仓网格)结果"好到不可能": 满载随机m2.0_h120=$645K/12.3万笔, 月月全正(dd=0.0), PLR99 -> 触发深挖
-- **bug2破案: v15_exit.simulate_exit吊灯模式hit_sl后循环不break, hi_since/trail继续更新到horizon末, 结算pnl=-trail_final(第152-154行) — 止损触发后未出场且按"回魂后"吊灯位结算; 多头触发后反弹->亏损变小甚至转盈; 这是v15全部吊灯成绩(月月全正/PLR99/$20.6K->$72K->$124K->$645K)的唯一来源**; STATIC/FIXED/TIME模式不受影响(tp/sl固定或纯持有)
-- v16_slip2.py 初版正确stop引擎(break at trigger): 全部组合负(δ=0也-$1.4K~-$7.5K), fills也变(6,052 vs 23,183) — 双重实锤回望bug
-- v16_slip3.py 终极修正引擎sim_true: 触发即出场+触发时刻解锁+乐观/保守同根序双版+固定障碍+纯持有; 扫kelt/rnd1000 x 11出场 x δ{0,0.1}
-- 真实地图: **kelt+fixed TP2.5/SL0.4/90min = +$2,599/27,265笔/笔均$0.095** 逐年+120/+376/-110/+670/+1543(2024微负, 2026占59%), δ=0.1滑点edge蒸发至+$236; model+fixed +$846(笔均0.047); model+time -$2,044(2026年-$1,728, ML连牛市漂移都吃不到); 乐观吊灯全负; 保守吊灯kelt +$838(δ0.1转负)
-- v16_slip4.py 补齐: model流4出场/rnd 5seeds方差/kelt动量衰减(h60/120/240: +662/+1255/+867, 半衰期~2h, 全靠2026)
-- rnd 5seeds fixed_tp2.5: +$6,100±433稳定正(截断彩票结构)但2024年-$2,601单seed且δ=0.1即-$9.6K -> 不可部署仅作分布参照; rnd+time稳定负(-$1,801±807)与理论一致
-- 归档: remote-ops-record/v16_20261002/(BUG_DISCLOSURE_v16.md+8脚本+8json+diag_trades.csv+tgz md5 47343595)
-- GitHub: server分支 a2af0a0 -> 9c3d586 (v16 bug披露+真实地图+修复版stage_c_loop)
-
-Stage Summary:
-- 两bug连环: bug1时域(3.47天)+bug2回望结算 — 项目全部历史成绩(732基准除外,其引擎存疑同款写法)宣告作废
-- 真实edge全图: 市场M1正确结算下只有$0.04-0.10/笔的薄alpha; kelt突破质量2x于ML选时(路线C唯一幸存); 路线B问题随bug消解; 路线A失去放大对象
-- 用户三路线的诚实答案: C=+ $2,599(kelt+fixed, 形式上超732.7但口径不同); A/B的前提(吊灯大利润/随机胜模型)都是bug产物
-
----
-Task ID: 31
-Agent: main (Z.ai Code)
-Task: 用户新指令"放弃M1微观择时,降采样M15/M30/H1;纯规则突破为第一基准;检验0.3xATR悲观滑点下笔均$5-15+2022-2026全正;ML留作宏观门控" — v17 HTF突破实验室全流程
-
-Work Log:
-- 基建确认: main=b85e6aa纯归档✓(Task28拆分已完成), server=9c3d586; 本地pandas 2.2.3为权威, data.csv 1.6M根M1 (2022-01-02~2026-07-17), spread中位159点=$0.159RT(1点=$0.001)
-- v17_htf.py 初筛引擎: resample label=left(bar时间戳=开盘), 收盘确认信号/次根open进场, 吊灯k根止损价由k-1信息决定+触发当根即出场(bug2教训), 同根保守排序(止损优先/gap按open/双向同根跳过), 双引擎(纯python vs numba同源编译)3TF逐位互验全过; 630配置(3TF x 7进场 x 10出场 x 3成本)
-- v17初筛发现: 0.3xATR成本下全正仅1/630; 吊灯2.5/3/3.5无一进top10(HTF正确结算下同样阵亡); 赢家=time/turtle结构出场; 2022绞肉年(188/210配置为负); H1 ATR14中位$5.90(用户$8-20是高波段)
-- v17b_refine.py 细化: 持仓期{1,2,3,5,8,13}日+turtle10/20+灾难止损8ATR组合 x 方向{多/空/双} x ATR闸门{无/>季度中位/>p30}(因果右移一根) = 6480配置, 引擎加gate参数并与v17引擎中性对照逐位互验
-- 预注册选冠(跑前锁定): pess03全正&笔均>=5&笔数>=150&share26<=70, 排序按total; 稳健门=三档成本全正+邻域平台>=50% — 入围28个, 过全部门仅3个; 总分王M15 don40s $3,661因平台0%被剔除(诚实披露)
-- **冠军: M30 don55s停损单 x 只做多 x ATR>季度中位闸门 x 持5交易日 = +$2,980.2/159笔/笔均$18.74/t=3.13, 五年全正{242.5/164.5/319.8/1394.5/858.9}(每年15-38笔), share26=28.8%, maxDD-$260, PLR2.19, wr58.5%; 成本阶梯base$3,208->pess03$2,980->pess05$2,775三档全五年全正(-13.5%)**
-- 消融: 只做多+$1,327(空头负贡献), ATR闸门再+$1,320(2022 +89->+243, 2026 -670->+859 = 规则版Route-A预演); 灾难止损8ATR反而摧毁($1,405且2022/23转负)
-- H1同门双变体同过全门: don55s/long/none/t5d +$2,375(share26仅6.1%), don20/long/atrp30/t5d +$2,240
-- v17c_champ.py 冠军档案: 逐笔159笔CSV+月度曲线+54月窗total+$2,854+消融表+基准对照(M1真实冠军$2,599/27,265笔笔均$0.095 -> HTF笔均质量197x, 1/171笔数赚1.15x总量)
-- 服务器复算: 3脚本上传md5一致, 服务器跑完6/6产物md5逐位一致(pandas 3.0.6 vs 本地2.2.3跨版本可复现); 服务器tar包md5 986549f4记录
-- 前端: src/app/page.tsx重写为HTF Breakout Lab看板(暗色控制台/无蓝紫/KPI+年度柱+SVG权益曲线+成本阶梯+消融瀑布+28强表+159笔逐笔+披露卡/响应式/粘底footer/framer-motion), public/data/v17.json 52KB数据包; lint过; agent-browser实测: 桌面+390px移动无溢出, tabs交互✓, 159行逐笔表✓, 28强表✓, 无console错误
-- Git: worktree模式推server分支 9c3d586->221c8eb(v17全档案11文件); main保持b85e6aa未动; ntfy完成通知已发
-
-Stage Summary:
-- 用户三命题检验: ①HTF成本占比小=成立(edge/成本13.7x, 成本x3仅-13.5%) ②纯规则跨周期全正=成立(条件苛刻: 无闸门/双向时1/630, 加方向+波动闸门后89/6480, 最终3个过全门) ③ML宏观门控=规则版ATR闸门已预演(+1320), ML多资产版留下一轮
-- 核心发现: 吊灯在HTF正确结算下同样阵亡 — 主导维度是持仓期时间结构(5日>>其他); 2022区间年靠闸门救; 空头负贡献(M1"双向收割"是bug2幻影); Keltner弱于Donchian
-- 诚实披露: 无止损尾部(最差-168/p10-49), 样本内网格选择(平台/阶梯/跨TF是缓解非消除), 2026仅半年, 159笔t=3.13达标但非厚样本, $732.7基准引擎存疑仅作刻度
-- 工程纪律: 双引擎逐位互验+跨引擎中性对照+服务器跨版本md5复现 — 两bug之后的验收标准全面执行
----
-Task ID: 32
-Agent: main (Z.ai Code)
-Task: 用户分支A指令 — 设计"防黑天鹅"而不扼杀利润的静态灾难底线(P0): 入场锁定止损线(Entry-4×ATR或入场时刻Donchian下轨)全程不上移, 检验保留$2,500+同时封死尾部; 顺便查DXY/白银数据
-
-Work Log:
-- 环境恢复: 沙箱未重置, ~/.ssh/id_ed25519_hjw221 仍在, git链路直接可用; main=b85e6aa(纯归档✓Task28拆分已完成确认) server=221c8eb
-- v18_static.py: 新引擎 EXIT_MODE_TIME_SL(时间出场为主+进场瞬间锁定静态止损: SL_ATR k倍数 / SL_REF 入场时刻Donchian轨道绝对价, 全程不上移; 触发当根即出场, gap按更差open, 止损优先于时间出场, 进场当根同样检查); R1验收=base臂与v17b引擎逐位一致($2,980.1/159笔array_equal)
-- v18主矩阵(13止损×3成本, pess03): 全部负贡献 — atr2.0 $399/atr3.0 $1,573/atr4.0 $2,181(最好,-27%)/atr8.0 $1,721/don20 $2,017/don55 $1,850; 无一保住$2,500; worst无一真正封死(-118~-196 vs base-168)
-- v18 overlay纯保险(base同159笔零路径耦合): net全负-$826~-$3,117, killed(误杀盈利)>avoided(保险赔付)全率成立, 每$1赔付代价$1.3~1.7误杀 — 静态止损负期望的最干净证据
-- v18b三根因钉死: Q1极限宽度atr10/12/16/20=$2,236/$2,190/$2,021/$2,086全负且worst随宽度恶化(-189/-226/-299/-373, 止损→再进场绞肉+ATR定标在高波年放出更大美元风险); Q2 MAE分布审计 p50=5.7×ATR, 0-21×连续无分离带(黑天鹅阈值物理上不存在), corr(MAE,pnl)=-0.522, MAE>6×的74笔中20笔最终盈利; Q3时变止损(用户"快速破位才斩"字面实现1d/2d/3d窗口)最好atr4.0@3d=$2,388, don55@2d制造新尾部-$394
-- v18c止损+冷却(被斩=假突破确认→禁进场5/10/20日): 更糟, 最好atr8.0+cd5d=$2,051, cd20d摧毁($122~-$253) — 被斩后错过真突破代价远大于避开假突破收益, "止损是信息"假设死亡
-- 数据现状回答: 本地+服务器仅XAUUSD单资产(1.6M根M1), 无DXY/白银/US10Y/VIX — 多资产门控启动前需先获取(MT5 demo/stooq/FRED候选)
-- 服务器复算: 3脚本md5一致上传, 3个json产物md5逐位一致(pandas 3.0.6 vs 2.2.3跨版本)
-- 前端: page.tsx改双tab(v17冠军看板/v18分支A实验室: 结论横幅+KPI行+13行止损矩阵表+MAE直方20桶+overlay双向条形avoided-vs-killed+三大根因卡+启示卡+多资产数据披露卡), public/data/v18.json 12.7KB; lint过; agent-browser实测: 桌面+390px移动(修复grid子项min-w-0溢出503→390)无溢出无console错误, 13行表✓20直方条✓tab切换✓矩阵表横向滚动✓
-- 归档: remote-ops-record/v18_20261002/(REPORT_v18.md+3脚本+3json+tgz md5 b35ba625); GitHub server分支 221c8eb→e1c2423; ntfy通知
-
-Stage Summary:
-- 分支A最终答案(否定性): 44个静态止损变体(宽度2~20ATR×结构ATR/Donchian×时变×冷却)全部无法保留$2,500+, 且无一真正封死尾部
-- 三大根因: ①5日时间出场本身已是灾难止损(worst-168被时间封顶) ②MAE分布无黑天鹅阈值(正常回踩p50=5.7×ATR连续覆盖0-21×) ③止损触发=绞肉开关(再进场循环159→307笔, 冷却也救不了)
-- 启示: 尾部管理应上移组合层(波动率倒数仓位), 2026型单边崩=方向敞口问题解法在多资产宏观门控; 无DXY/白银数据需先获取
-- 工程纪律: R1逐位复现+双引擎互验+服务器跨版本md5复现 全部通过
-
----
-Task ID: 33
-Agent: main (Z.ai Code)
-Task: 用户"我们的v17是没有模型的对吧？那直接写个mq5我用mt5试试历史回测" — 确认无模型 + v17冠军 MQ5 移植交付
-
-Work Log:
-- 确认: v17 = 纯规则零模型(4条规则: Donchian-55停损单/只做多/ATR季中位闸门/240根时间出场); ML自v16时域bug证伪后已重定位为后续宏观门控, v17冠军与v18静态止损实验均无任何模型
-- 语义提取: 通读 CHAMPION_v17.md + v17_htf.py + v17b_refine.py 逐条钉死移植语义 — dhi55=rolling(55).max().shift(1) / ATR14=TR简单均值(非Wilder,iATR不可用) / 闸门=atr[k-1]>median(atr[k-3024..k-1])右移一根含自身 / 时间出场k>=eib+240按o[k] / 出场当根不再进场 / 跳空按开盘价保守成交 / 串行单仓
-- XAUUSD_v17_Champion.mq5 (21,026B, md5 80283468): CTrade实现, 停损单ORDER_TIME_SPECIFIED仅当根有效+下根删旧挂新, OnTradeTransaction以deal时刻定位入场bar(轮询兜底), iBarShift计bar数(周末/节假日自然跳过=引擎bar计数语义), hold/gate窗口按PeriodSeconds自动推导(M30=240/3024,M15=480/6048,H1=120/1512,可复现R2/R3变体), 分位数线性插值同pandas, v18结论→InpUseDisasterStop默认false, 0.01lot=1oz→测试器$≈研究$, OnDeinit自动打印逐年汇总日志; 静态自检: 括号/圆括号平衡+关键函数齐全+UTF-8 BOM(MetaEditor中文友好)
-- 前端: v17 tab新增"MT5 独立复验"下载卡片(emerald边框+Button asChild download+测试器设置/预期落点说明); lint过; agent-browser实测: 卡片渲染✓链接href/download属性✓浏览器内fetch 200/21026B/内容含int OnInit()✓ 桌面+390px移动overflowX=0✓ 无console错误✓ 粘底footer结构(min-h-screen flex-col+mt-auto)保持✓
-- git链路修复: 沙箱ssh二进制又丢(第N次部分重置,paramiko 5.0.0与密钥id_ed25519_hjw221仍在) → 重建/home/z/.ssh/gitshim.py paramiko双向转发桥(stdin线程+channel轮询), git config core.sshCommand+ssh.variant simple, ls-remote复活(e1c2423确认)
-- 归档: remote-ops-record/mq5_20261002/(README_MQ5.md移植保真度对照表+mq5副本) + worktree推server分支
-
-Stage Summary:
-- v17无模型确认: 是 — 纯规则; MQ5 = bug1/bug2之后第一个独立引擎复验通道
-- 交付物: XAUUSD_v17_Champion.mq5(研究窗参照159笔+$2,980逐年全正; MT5真实点差预期$2,980~$3,208; 2026-07-17后=样本外)
-- 移植纪律: 每条引擎语义(含ATR口径/闸门右移/出场当根禁进场/跳空保守)均有对应实现, README对照表可审计
-- 基建: paramiko git-ssh桥重建脚本固化在/home/z/.ssh/gitshim.py(下次沙箱重置直接复用)
-
----
-Task ID: 34
-Agent: main (Z.ai Code)
-Task: 用户"这个不是我想要的，暂时封存。从头再来，新建一个github分支"——封存 v17/v18 路线, 新建分支实现 Streaming RLS-Reservoir Engine (ESN+GMM+RLS 在线主动推理) 阶段一
-
-Work Log:
-- 封存: v17 MQ5 移植与 v18 静态止损实验保留归档不再推进; git checkout -b reservoir-engine (自 main d0a4fbf)
-- 引擎实现 research/reservoir/reservoir_engine.py (500行 NumPy 纯净单文件): L1 ESN(500神经元/密度10%/ρ0.95/tanh/W锁死) + L2 StreamingGMM(对角/Mahalanobis²>36+冷却96bar自生长/权重衰减/剪枝) + L3 遗忘RLS(默认λ0.999+δ1e-6+trace上限+周期对称化四重防缠绕); 主动推理双头标签 y_var_rel(未来4bar相对实现方差)+y_skew(±2.5有界偏斜); 仓位=clip(2ŝkew)×1/(1+0.5v̂ar)×混沌门, EMA平滑+死区0.05+速率0.20, 1oz口径, 成本|Δpos|×(0.3ATR+点差)
-- 修3个bug: outer(k,e)转置→(e,k); GMM剪枝mu/sd/w长度失同步(冒烟数据少没暴露,真实数据立即触发)+被剪kb重指; 空扫描列表守卫
-- 因果纪律: t收盘GMM→储层→RLS.update(φ_{t-4},y_{t-4})→预测→设pos_{t+1}; 全rolling统计因果
-- 服务器(经GCP跳板paramiko)上传点火: 主运行(3种子+λ扫描{nres扫描+洗牌+动量基线) + 4并行视界探针(h16/h32/h96/h32低换手)
-- 前端: 第三tab R1·Reservoir引擎实验室(src/components/reservoir-tab.tsx 450行): 结论横幅+4KPI+三层架构卡+权益SVG+W‖收敛+GMM生长双sparkline+逐年状态占比+逐年明细表+学习真实性/种子/λ/规模对照+视界探针表+部署路线三阶段
-- 浏览器实测修3处: 接口形状metrics嵌套(runtime error)→对齐; 390px溢出236px→TabsList overflow-x-auto+grid子项min-w-0+规格span flex-wrap(经验二分min-width:0定位)
-- 归档: remote-ops-record/reservoir_20261002/(主运行md5 40de064+探针版d73ed6f+5json+5out+REPORT_R1.md+artifacts.tgz md5 21b12ff0)
-
-Stage Summary:
-- R1阶段一诚实结论: 学习为真(能量头IC 0.343/方向头IC 0.020 t≈6.4, 洗牌对照IC→0.004确证), alpha在波动率不在方向(与M1时代AUC 0.505互证)
-- 瓶颈在执行层不在学习层: 全视界毛利为正(+$411~+$1,080@1oz)但连续调仓成本是毛利33倍; 低换手变体(dead0.10/rate0.10)成本砍58%毛利仅−9%→净亏−$10,085→−$3,695, 修复路径已证
-- 算力承诺兑现: 单核0.478ms/bar(p99 0.61) 引擎4.1MB(nres1000→16.1MB但2.52ms/bar超2ms如实报告); W‖在19↔85终身漂移无灾难遗忘; GMM收敛4组件
-- 种子稳健(3种子PnL −13.6k~−14.2k); λ0.999 IC最优; n_res1000无增益
-- 下一步: P0事件驱动调仓(换手再砍70%) / P1能量头×v17规则引擎融合(IC0.34波动率预测做HTF突破在线闸门) / 双头双视界部署 / 阶段二ZeroMQ桥→阶段三DLL
-- 分支: reservoir-engine 已建(本次提交推送), 用户可独立于 main/server 演进该路线
-
----
-Task ID: 34-addendum
-Agent: main (Z.ai Code)
-Task: R1 分支推送收尾 + git 大文件事故处理
-
-Work Log:
-- 推送事故: 首推被拒 research-lab/data.csv 100.93MB (GitHub 100MB 硬限)
-- 第一次修复失败教训×2: ① filter-branch 只重写了 a3d5a4b^..HEAD, 大文件 blob 在更深的 c212465/6ecbc87 祖先里仍在; ② `A && B && C; D` 链在 merge-base 非零处断裂导致"data.csv已清除"检查根本没执行(和 worklog 坑位第2条同型——坑位集要加星号)
-- 最终方案(贴合用户"从头再来"语义): 孤儿分支单提交快照 — 全部研究成果(三tab前端+引擎+归档+worklog)打成 be9b4f5 一个干净提交, 581 个对象全 <100MB, 推送成功
-- .gitignore 新增: research-lab/data.csv / skills/ / upload/ / tool-results/ / .zscripts/ / dev.log; 原始 M1 csv 备份在 /home/z/data-backup/XAUUSDc_M1.csv (md5 f6b0d44d, 服务器原件同在)
-- 本地 main 仍为重写后的杂历史(未再推送); origin/main 保持上次会话的纯归档态 b85e6aa 不动 — 分仓哲学: main=纯归档, server=旧研究, reservoir-engine=新路线
-- stash/refs-original 清理完毕; ntfy 通知已发
-
-Stage Summary:
-- GitHub 新分支 reservoir-engine = be9b4f5 (孤儿快照, 无历史包袱, 无大文件) — 用户"新建一个github分支从头再来"指令完成
-- 待办转移: 本地 main 与 origin/main(b85e6aa) 分叉的最终处置(重置本地 or 保留)留给用户决定
-
----
-Task ID: 35
-Agent: main (Z.ai Code)
-Task: 用户给出路线A(R1能量头→v17突破系统前瞻闸门,替换63天ATR中位后视镜)与路线B(R1独立端到端,施密特触发+加仓锁+事件驱动)并授权"根据你的见解来"——终局审判与完整实现
-
-Work Log:
-- 事前定案: 路线A为主干(风险不对称/任务难度不对称/v17消融已预演闸门机制三条理由), 路线B三大机制(施密特触发·迟滞带·最小时锁)移植到【闸门状态机】(作用对象从仓位改为闸门, 防阈值闪烁吞掉入场窗口), 路线B本体按用户规格原样实现为同框架对照臂
-- v19_r1gate.py: R1 oracle逐字段复用主运行配置(500神经元/λ0.999/seed42)→M15能量前瞻R̂=ŷ_var_rel; 施密特闸门(θ_on∈{1.15,1.25,1.35}×锁{8,16}根,迟滞带0.15,min_off=4,warm=2000)→gate30[k]=状态@最后先于o30[k]收盘的M15 bar(与冠军gate[k]=ATR[k−1]>med[k−1]同一因果约定); 预注册规则跑前锁定
-- 第一轮结果: 基线复现断言$2,980.2精确命中(引擎复用铁证); R1闸门6/6失败($1,437~$1,957,全部2026转负); UNION $2,284更差; INTERSECT $2,750唯一全正家族仍不敌; 路线B −$3,286/3,126笔/13.5笔每周(预期3-5)/t=−3.45/逐年全负/side口径−$7,769
-- 失败签名诊断: 闸门与冠军仅49%同时ON(r1-only 22%笔均$11.4 vs 基线$18.7; atrmed-only 27%装着2026赢家); oracle质量无罪(IC_var逐年0.25~0.42稳定为真)→失败在架构位置不在预测质量
-- v19b_refine.py 第二轮(明确标注post-hoc): H1视界假设否定(h16=4h用户规格上限+长时锁48/96变体, 10/10无臂超基线; R1阶段一早有死因:IC_var在24h归零); H2决定性对照=因果nowcast(零学习零先见)同一施密特机器→$2,816逐年全正,超过全部学习前瞻闸门但仍<基线→先见在该尺度为负增量(修了一处verdict字符串方向反转bug,数据未动); H3入场条件诊断=基线159笔R̂-PnL相关0.05~0.06≈0,nowcast条件为负(高能突破笔均$12.4 vs 低能$24.6),2022净化功劳属63天regime闸门
-- 前端: src/components/v19-tab.tsx第四tab(终局横幅+4KPI+事前决策卡+三线权益SVG+第一轮预注册表+诊断三卡+第二轮H1/H2/H3+intersect保护变体+路线B规格vs现实卡+根因与去向+诚实披露); build_v19_json.py→public/data/v19.json 52KB
-- 浏览器实测: v19 tab渲染✓ 无console错误✓ 390px溢出检查390==390✓ tab双向切换✓ KPI与研究结果逐项核对✓; lint过
-- 归档: remote-ops-record/v19_20261002/(REPORT_v19.md+3脚本+2json+4逐笔CSV+tgz md5 6fb9243b)
-
-Stage Summary:
-- 终局: 路线A与路线B在冠军几何上双双证伪; v17冠军在2轮24个替换/组合变体下全部存活, 未被任何ML闸门击败
-- 根因=时间常数错位: "ATR>63天中位"是慢持续regime状态变量(与5日持仓同频), 不是待替换的滞后估计量; ≤24h能量先见(学习与否)无法替代——"用秒表指挥四季耕作"; 短程波动率最优预测是持续性, 储层先见在闸门尺度只添噪声
-- 路线B的遗产是机制(已移植进闸门)不是本体: 纪律救不了IC 0.02的方向头; 13.5笔/周证明|ŝ|≥0.40死区不稀有
-- R1真alpha正确去向: 原生1h视界执行/择时层(R1报告P0)/多资产慢regime扩展(需先补DXY白银数据)/引擎基建(0.98ms/bar本地单线程,IC稳定)可复用
-- 工程纪律: 基线$2,980.2逐位复现断言+预注册规则跑前锁定+post-hoc轮明确标注+20臂全报无挑选
+- 用户三问全答: ①R1能进步(IC 0.343→0.491 +43%, 5×提速, 根因=RLS条件数) ②联动v3bal_ens(真实小幅, 非放大器) ③四用途重估(UC4跨资产嵌合最强0.49→0.54+shuffle验证, UC2呼吸校准1.04, UC3断路器5.9×, UC1尾部4×)
+- 附属重大产出: v3bal_ens时域bug修复(三层坑挖穿), 1657笔有效交易流(9/30的409笔/−$40.7是bug产物)
+- 优先级: UC4跨资产嵌合 > UC2呼吸阀 > UC3断路器 > UC1网格装甲 > v3bal联动
+- 坑位新记: 服务器wf的checkpoint会短路回放旧结果(必须连results/checkpoints一起清); 管道|head会SIGPIPE杀远程长任务; 后台nohup进程在沙箱会被平台回收(改前台分批)

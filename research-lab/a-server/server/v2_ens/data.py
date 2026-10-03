@@ -13,6 +13,12 @@ CACHE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cache")
 os.makedirs(CACHE_DIR, exist_ok=True)
 
 
+def epoch_minutes(idx):
+    """DatetimeIndex -> epoch 分钟 int64. pandas 2/3 双安全 (datetime64[s] 中转,
+    修复 [us] dtype 下 astype(int64)//1e9//60 的千秒域 bug — v16 同型)."""
+    return (idx.astype("datetime64[s]").astype("int64") // 60).to_numpy(np.int64)
+
+
 def load_raw_m1(csv_path):
     """加载原始M1, 只读需要的列, 控制内存。"""
     df = pd.read_csv(csv_path, sep="\t",
@@ -77,7 +83,7 @@ def load_data(cfg, force=False):
     spread_cost, monthly = impute_spread(m5, cfg["point_value"])
 
     # M1 精度数组 (标签/回测用): time为int64分钟, 便于numba二分
-    m1_times = (m1.index.astype("int64") // 10**9 // 60).to_numpy(np.int64)
+    m1_times = epoch_minutes(m1.index)
     m1_pack = (
         m1_times,
         m1["OPEN"].to_numpy(np.float64), m1["HIGH"].to_numpy(np.float64),
@@ -91,4 +97,4 @@ def load_data(cfg, force=False):
 
 
 def m5_times_minutes(m5):
-    return (m5.index.astype("int64") // 10**9 // 60).to_numpy(np.int64)
+    return epoch_minutes(m5.index)

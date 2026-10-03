@@ -64,7 +64,7 @@ def build_folds(m5, cfg):
 
 def time_decay_weights(m5_index, rows, halflife_days):
     """样本时间衰减权重: 距窗末每过半衰期权重减半 (适应金价新regime)。"""
-    t = (m5_index[rows].astype("int64") // 10**9 / 86400.0).to_numpy()
+    t = (m5_index[rows].astype("datetime64[s]").astype("int64") / 86400.0).to_numpy()
     t_ref = t[-1]
     age = t_ref - t
     return np.exp(-np.log(2.0) * np.maximum(age, 0) / halflife_days)

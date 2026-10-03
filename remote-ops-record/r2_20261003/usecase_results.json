@@ -1,0 +1,162 @@
+{
+ "meta": {
+  "generated": "2026-10-03",
+  "npz": "champ_s42",
+  "n": 106895
+ },
+ "uc1_grid_shield": {
+  "rows": [
+   {
+    "decile": 1,
+    "n": 8558,
+    "buy_fill": 1.0,
+    "buy_adverse": -0.033,
+    "buy_tail": -3.499,
+    "sell_fill": 0.698,
+    "sell_adverse": 0.539
+   },
+   {
+    "decile": 2,
+    "n": 8557,
+    "buy_fill": 1.0,
+    "buy_adverse": 0.008,
+    "buy_tail": -5.316,
+    "sell_fill": 0.737,
+    "sell_adverse": 0.715
+   },
+   {
+    "decile": 3,
+    "n": 8557,
+    "buy_fill": 1.0,
+    "buy_adverse": 0.061,
+    "buy_tail": -7.179,
+    "sell_fill": 0.745,
+    "sell_adverse": 0.876
+   },
+   {
+    "decile": 4,
+    "n": 8558,
+    "buy_fill": 1.0,
+    "buy_adverse": 0.021,
+    "buy_tail": -8.495,
+    "sell_fill": 0.769,
+    "sell_adverse": 1.058
+   },
+   {
+    "decile": 5,
+    "n": 8557,
+    "buy_fill": 1.0,
+    "buy_adverse": 0.016,
+    "buy_tail": -9.418,
+    "sell_fill": 0.784,
+    "sell_adverse": 1.106
+   },
+   {
+    "decile": 6,
+    "n": 8557,
+    "buy_fill": 1.0,
+    "buy_adverse": 0.127,
+    "buy_tail": -9.707,
+    "sell_fill": 0.788,
+    "sell_adverse": 0.982
+   },
+   {
+    "decile": 7,
+    "n": 8558,
+    "buy_fill": 1.0,
+    "buy_adverse": -0.08,
+    "buy_tail": -10.913,
+    "sell_fill": 0.807,
+    "sell_adverse": 1.123
+   },
+   {
+    "decile": 8,
+    "n": 8557,
+    "buy_fill": 1.0,
+    "buy_adverse": 0.103,
+    "buy_tail": -11.59,
+    "sell_fill": 0.827,
+    "sell_adverse": 1.142
+   },
+   {
+    "decile": 9,
+    "n": 8557,
+    "buy_fill": 1.0,
+    "buy_adverse": -0.23,
+    "buy_tail": -14.009,
+    "sell_fill": 0.833,
+    "sell_adverse": 1.436
+   },
+   {
+    "decile": 10,
+    "n": 8558,
+    "buy_fill": 1.0,
+    "buy_adverse": 0.026,
+    "buy_tail": -13.455,
+    "sell_fill": 0.852,
+    "sell_adverse": 0.844
+   }
+  ],
+  "verdict": {
+   "buy_adverse_d1": -0.033,
+   "buy_adverse_d10": 0.026,
+   "delta_d10_minus_d1": 0.059,
+   "note": "adverse = \u6302\u5355\u6210\u4ea4\u540e\u6301\u67094bar\u7684\u6d6e\u76c8; \u8d1f=\u9006\u5411\u9009\u62e9\u635f\u5931"
+  }
+ },
+ "uc2_breathing": {
+  "decile_mean_realized": [
+   0.345,
+   0.453,
+   0.538,
+   0.633,
+   0.736,
+   0.848,
+   0.953,
+   1.13,
+   1.553,
+   2.525
+  ],
+  "slope": 1.043,
+  "spread": 7.32
+ },
+ "uc3_sentinel": {
+  "n_events": 525,
+  "mean_d2_profile": [
+   7.6,
+   7.7,
+   7.7,
+   7.9,
+   8.0,
+   8.1,
+   8.7,
+   9.0,
+   16.7,
+   11.5,
+   10.3,
+   10.0,
+   9.1,
+   8.8,
+   8.5,
+   8.3
+  ],
+  "pre_alert_rate": 0.072,
+  "base_rate": 0.0063,
+  "lift": 11.5,
+  "fwd_var_after_d2spike": 1.3,
+  "event_dates_sample": [
+   "2022-02-24 04:00:00",
+   "2022-02-24 14:30:00",
+   "2022-02-24 15:15:00",
+   "2022-02-24 19:00:00",
+   "2022-02-24 19:15:00",
+   "2022-02-27 23:00:00",
+   "2022-03-02 10:15:00",
+   "2022-03-06 23:00:00",
+   "2022-03-07 13:45:00",
+   "2022-03-08 06:30:00",
+   "2022-03-08 15:15:00",
+   "2022-03-08 15:45:00"
+  ]
+ }
+}
