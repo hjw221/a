@@ -1,0 +1,11 @@
+{
+  "name": "weather-sentinel",
+  "version": "1.0.0",
+  "private": true,
+  "description": "UC4 cross-asset weather sentinel - 3-asset streaming RLS-reservoir engine + chimeric XAU forecaster",
+  "scripts": {
+    "dev": "bun --hot src/index.ts",
+    "start": "bun src/index.ts",
+    "verify": "bun src/index.ts --verify"
+  }
+}

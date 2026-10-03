@@ -14,6 +14,8 @@ import { V19Tab } from '@/components/v19-tab'
 import type { V19Data } from '@/components/v19-tab'
 import { R2Tab } from '@/components/r2-tab'
 import type { R2Data } from '@/components/r2-tab'
+import { WeatherTab } from '@/components/weather-tab'
+import { V17UTab } from '@/components/v17u-tab'
 import {
   AlertTriangle, CheckCircle2, Crosshair, Download, FlaskConical, Gauge, Layers,
   LineChart, ShieldCheck, Timer, TrendingUp, XCircle,
@@ -657,6 +659,8 @@ export default function Home() {
               <TabsTrigger value="r1" className="data-[state=active]:bg-zinc-800">R1 · Reservoir 引擎实验室</TabsTrigger>
               <TabsTrigger value="v19" className="data-[state=active]:bg-zinc-800">v19 · 路线A/B 终局审判</TabsTrigger>
               <TabsTrigger value="r2" className="data-[state=active]:bg-zinc-800">R2 · 自我进化×四用途审判</TabsTrigger>
+              <TabsTrigger value="weather" className="data-[state=active]:bg-zinc-800">气象站 · UC4 天气预警器</TabsTrigger>
+              <TabsTrigger value="v17u" className="data-[state=active]:bg-zinc-800">v17u · 终极版 + MQ5</TabsTrigger>
             </TabsList>
             <TabsContent value="v17" className="mt-4">
           <div className="space-y-6">
@@ -861,6 +865,12 @@ export default function Home() {
                   {Array.from({ length: 8 }).map((_, i) => <div key={i} className="h-24 animate-pulse rounded-lg bg-zinc-900/60" />)}
                 </div>
               )}
+            </TabsContent>
+            <TabsContent value="weather" className="mt-4">
+              <WeatherTab />
+            </TabsContent>
+            <TabsContent value="v17u" className="mt-4">
+              <V17UTab />
             </TabsContent>
           </Tabs>
         )}
